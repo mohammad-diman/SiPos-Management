@@ -91,15 +91,15 @@ export default function Index({ auth, kaders, available_users, filters }) {
                     </PrimaryButton>
                 </div>
 
-                <div className="bg-white rounded-[2.5rem] shadow-sm border border-slate-100 overflow-hidden text-sm">
-                    <div className="overflow-x-auto">
+                <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden text-[12px]">
+                    <div className="overflow-x-auto text-[12px]">
                         <table className="w-full text-left border-collapse">
                             <thead>
                                 <tr className="bg-slate-50/50 border-b border-slate-100 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-                                    <th className="px-6 py-3">Identitas Kader</th>
-                                    <th className="px-6 py-3 text-center">Jabatan</th>
-                                    <th className="px-6 py-3">Akun Login</th>
-                                    <th className="px-6 py-3 text-right">Aksi</th>
+                                    <th className="px-6 py-4">Identitas Kader</th>
+                                    <th className="px-6 py-4 text-center">Jabatan</th>
+                                    <th className="px-6 py-4">Akun Login</th>
+                                    <th className="px-6 py-4 text-right">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-50 font-medium text-slate-700">
@@ -107,32 +107,32 @@ export default function Index({ auth, kaders, available_users, filters }) {
                                     <tr key={k.id} className="hover:bg-slate-50/40 transition-colors group">
                                         <td className="px-6 py-3 whitespace-nowrap">
                                             <div className="flex items-center gap-3">
-                                                <div className="h-9 w-9 rounded-2xl bg-seafoam-50 text-seafoam-600 flex items-center justify-center font-black text-sm uppercase">
+                                                <div className="h-8 w-8 rounded-lg bg-seafoam-50 text-seafoam-600 flex items-center justify-center font-black text-[10px] uppercase">
                                                     {k.nama.charAt(0)}
                                                 </div>
                                                 <div>
-                                                    <p className="text-sm font-extrabold text-slate-900">{k.nama}</p>
-                                                    <p className="text-xs text-slate-400 font-bold tracking-tight">NIK: {k.nik}</p>
+                                                    <p className="text-[12px] font-extrabold text-slate-900 leading-tight">{k.nama}</p>
+                                                    <p className="text-[9px] text-slate-400 font-bold tracking-tight mt-0.5">NIK: {k.nik}</p>
                                                 </div>
                                             </div>
                                         </td>
                                         <td className="px-6 py-3 whitespace-nowrap text-center">
-                                            <span className="px-3 py-1 bg-slate-100 text-slate-600 rounded-lg text-[10px] font-black uppercase">{k.jabatan || '-'}</span>
+                                            <span className="px-2 py-0.5 bg-slate-100 text-slate-600 rounded text-[9px] font-black uppercase">{k.jabatan || '-'}</span>
                                         </td>
                                         <td className="px-6 py-3 whitespace-nowrap">
                                             {k.user ? (
                                                 <div className="flex items-center gap-2 text-seafoam-600">
                                                     <div className="w-1.5 h-1.5 rounded-full bg-seafoam-500 animate-pulse"></div>
-                                                    <span className="text-xs font-bold">{k.user.email}</span>
+                                                    <span className="text-[11px] font-bold">{k.user.email}</span>
                                                 </div>
                                             ) : (
-                                                <span className="text-xs text-slate-300 font-bold italic">Belum punya akun</span>
+                                                <span className="text-[11px] text-slate-300 font-bold italic">Belum punya akun</span>
                                             )}
                                         </td>
                                         <td className="px-6 py-3 whitespace-nowrap text-right">
-                                            <div className="flex justify-end gap-3 text-sm">
-                                                <button onClick={() => openModal(k)} className="p-2.5 rounded-xl bg-slate-50 text-slate-400 hover:text-seafoam-600 hover:bg-seafoam-50 transition-all shadow-sm"><EditIcon /></button>
-                                                <button onClick={() => { setDeletingId(k.id); setIsDeleteModalOpen(true); }} className="p-2.5 rounded-xl bg-slate-50 text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-all shadow-sm"><DeleteIcon /></button>
+                                            <div className="flex justify-end gap-1.5">
+                                                <button onClick={() => openModal(k)} className="p-1.5 rounded-lg bg-slate-50 text-slate-400 hover:text-seafoam-600 hover:bg-seafoam-50 transition-all shadow-sm"><EditIcon /></button>
+                                                <button onClick={() => { setDeletingId(k.id); setIsDeleteModalOpen(true); }} className="p-1.5 rounded-lg bg-slate-50 text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-all shadow-sm"><DeleteIcon /></button>
                                             </div>
                                         </td>
                                     </tr>
@@ -141,8 +141,8 @@ export default function Index({ auth, kaders, available_users, filters }) {
                         </table>
                     </div>
                     
-                    <div className="px-6 py-3 bg-slate-50/30 border-t border-slate-50 flex flex-col sm:flex-row items-center justify-between gap-3">
-                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Menampilkan {kaders.data.length} dari {kaders.total} Kader</span>
+                    <div className="px-6 py-4 bg-slate-50/30 border-t border-slate-50 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px]">
+                        <span className="font-black text-slate-400 uppercase tracking-widest text-[10px]">Menampilkan {kaders.data.length} dari {kaders.total} Kader</span>
                         <Pagination links={kaders.links} />
                     </div>
                 </div>

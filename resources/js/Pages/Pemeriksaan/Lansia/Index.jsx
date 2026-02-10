@@ -135,10 +135,10 @@ export default function Index({ auth, pemeriksaans, lansias = [], filters, antri
             <div className="space-y-6">
                 {/* Panel Antrian Aktif */}
                 {antrian_aktif && (
-                    <div className="bg-amber-500 rounded-[2rem] p-6 text-white shadow-2xl shadow-amber-200 flex flex-col md:flex-row items-center justify-between gap-4 overflow-hidden relative">
+                    <div className="bg-amber-500 rounded-3xl p-6 text-white shadow-2xl shadow-amber-200 flex flex-col md:flex-row items-center justify-between gap-4 overflow-hidden relative">
                         <div className="absolute top-0 right-0 -mr-10 -mt-10 w-64 h-64 bg-white/10 rounded-full blur-3xl"></div>
                         <div className="flex items-center gap-4 relative z-10">
-                            <div className="h-20 w-20 bg-white rounded-3xl flex flex-col items-center justify-center text-amber-500 shadow-xl">
+                            <div className="h-20 w-20 bg-white rounded-2xl flex flex-col items-center justify-center text-amber-500 shadow-xl">
                                 <span className="text-[9px] font-black uppercase tracking-tighter leading-none mb-1">Nomor</span>
                                 <span className="text-3xl font-black leading-none">{antrian_aktif.nomor_antrian}</span>
                             </div>
@@ -167,7 +167,7 @@ export default function Index({ auth, pemeriksaans, lansias = [], filters, antri
                     </div>
                 )}
 
-                <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100">
+                <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
                     <div className="flex items-center gap-4 w-full md:w-auto">
                         <div className="relative w-full md:w-80 group">
                             <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400"><SearchIcon /></span>
@@ -183,52 +183,52 @@ export default function Index({ auth, pemeriksaans, lansias = [], filters, antri
                     </PrimaryButton>
                 </div>
 
-                <div className="bg-white rounded-[2.5rem] shadow-sm border border-slate-100 overflow-hidden text-sm">
-                    <div className="overflow-x-auto">
+                <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
+                    <div className="overflow-x-auto text-[12px]">
                         <table className="w-full text-left border-collapse">
                             <thead>
                                 <tr className="bg-slate-50/50 border-b border-slate-100 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-                                    <th className="px-8 py-5 text-sm">Tanggal</th>
-                                    <th className="px-8 py-5 text-sm">Nama Lansia</th>
-                                    <th className="px-8 py-5 text-sm text-center">Tensi / BB / TB</th>
-                                    <th className="px-8 py-5 text-sm text-center">Gula / Kolest / Asam</th>
-                                    <th className="px-8 py-5 text-sm text-right">Aksi</th>
+                                    <th className="px-6 py-4">Tanggal</th>
+                                    <th className="px-6 py-4">Nama Lansia</th>
+                                    <th className="px-6 py-4 text-center">Tensi / BB / TB</th>
+                                    <th className="px-6 py-4 text-center">Gula / Kolest / Asam</th>
+                                    <th className="px-6 py-4 text-right">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-50 font-medium text-slate-700">
                                 {pemeriksaans.data.map((p) => (
                                                                             <tr key={p.id} className="hover:bg-slate-50/30 transition-colors group">
-                                                                                <td className="px-8 py-5 whitespace-nowrap font-bold text-slate-900">{p.tanggal_periksa}</td>
-                                                                                <td className="px-8 py-5 whitespace-nowrap">
-                                                                                    <div className="flex items-center gap-4">
-                                                                                        <div className="h-10 w-10 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600 font-black text-xs">{p.lansia?.nama?.charAt(0)}</div>
-                                                                                        <div><p className="text-sm font-extrabold text-slate-900">{p.lansia?.nama}</p><p className="text-[10px] text-slate-400 font-bold uppercase">{p.lansia?.no_rm}</p></div>
+                                                                                <td className="px-6 py-3 whitespace-nowrap font-bold text-slate-900">{p.tanggal_periksa}</td>
+                                                                                <td className="px-6 py-3 whitespace-nowrap">
+                                                                                    <div className="flex items-center gap-3">
+                                                                                        <div className="h-8 w-8 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600 font-black text-[10px]">{p.lansia?.nama?.charAt(0)}</div>
+                                                                                        <div><p className="text-[12px] font-extrabold text-slate-900 leading-tight">{p.lansia?.nama}</p><p className="text-[9px] text-slate-400 font-bold uppercase">{p.lansia?.no_rm}</p></div>
                                                                                     </div>
                                                                                 </td>
-                                                                                <td className="px-8 py-5 whitespace-nowrap text-center font-bold text-slate-600">{p.tekanan_darah} / {p.berat_badan}kg / {p.tinggi_badan}cm</td>
-                                                                                <td className="px-8 py-5 whitespace-nowrap text-center">
+                                                                                <td className="px-6 py-3 whitespace-nowrap text-center font-bold text-slate-600">{p.tekanan_darah} / {p.berat_badan}kg / {p.tinggi_badan}cm</td>
+                                                                                <td className="px-6 py-3 whitespace-nowrap text-center">
                                                                                     <div className="flex flex-col gap-0.5">
                                                                                         <span className="text-[10px] font-black text-seafoam-600">G: {p.gula_darah || '-'} | K: {p.kolesterol || '-'} | A: {p.asam_urat || '-'}</span>
                                                                                     </div>
                                                                                 </td>                                        
-                                                                                <td className="px-8 py-5 whitespace-nowrap text-right">
-                                                                                    <div className="flex justify-end gap-2 text-slate-400">
-                                                                                        <button onClick={() => openDetailModal(p)} className="p-2 hover:text-seafoam-600 transition-colors" title="Lihat Detail"><ViewIcon /></button>
-                                                                                        <button onClick={() => openModal(p)} className="p-2 hover:text-indigo-600 transition-colors" title="Edit"><EditIcon /></button>
-                                                                                        <button onClick={() => { setDeletingId(p.id); setIsDeleteModalOpen(true); }} className="p-2 hover:text-rose-600 transition-colors" title="Hapus"><DeleteIcon /></button>
+                                                                                <td className="px-6 py-3 whitespace-nowrap text-right">
+                                                                                    <div className="flex justify-end gap-1.5 text-slate-400">
+                                                                                        <button onClick={() => openDetailModal(p)} className="p-1.5 hover:text-seafoam-600 transition-colors" title="Lihat Detail"><ViewIcon /></button>
+                                                                                        <button onClick={() => openModal(p)} className="p-1.5 hover:text-indigo-600 transition-colors" title="Edit"><EditIcon /></button>
+                                                                                        <button onClick={() => { setDeletingId(p.id); setIsDeleteModalOpen(true); }} className="p-1.5 hover:text-rose-600 transition-colors" title="Hapus"><DeleteIcon /></button>
                                                                                     </div>
                                                                                 </td>
                                                                             </tr>
                                 ))}
                                 {pemeriksaans.data.length === 0 && (
-                                    <tr><td colSpan="5" className="px-8 py-10 text-center text-slate-400 font-medium italic font-bold text-xs uppercase tracking-widest">Tidak ada data ditemukan.</td></tr>
+                                    <tr><td colSpan="5" className="px-6 py-10 text-center text-slate-400 font-medium italic font-bold text-[11px] uppercase tracking-widest">Tidak ada data ditemukan.</td></tr>
                                 )}
                             </tbody>
                         </table>
                     </div>
                     
-                    <div className="px-8 py-5 bg-slate-50/30 border-t border-slate-50 flex flex-col sm:flex-row items-center justify-between gap-4">
-                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Menampilkan {pemeriksaans.from || 0} - {pemeriksaans.to || 0} dari {pemeriksaans.total} Data</span>
+                    <div className="px-6 py-4 bg-slate-50/30 border-t border-slate-50 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px]">
+                        <span className="font-black text-slate-400 uppercase tracking-widest">Menampilkan {pemeriksaans.from || 0} - {pemeriksaans.to || 0} dari {pemeriksaans.total} Data</span>
                         <Pagination links={pemeriksaans.links} />
                     </div>
                 </div>
@@ -291,9 +291,19 @@ export default function Index({ auth, pemeriksaans, lansias = [], filters, antri
                                         <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-seafoam-600">2. Hasil Laboratorium</h3>
                                     </div>
                                     <div className="grid grid-cols-3 gap-2">
-                                        <div><InputLabel value="Gula" /><TextInput type="number" className="w-full py-2 text-sm" value={data.gula_darah} onChange={(e) => setData('gula_darah', e.target.value)} /></div>
-                                        <div><InputLabel value="Kolest" /><TextInput type="number" className="w-full py-2 text-sm" value={data.kolesterol} onChange={(e) => setData('kolesterol', e.target.value)} /></div>
-                                        <div><InputLabel value="Asam" /><TextInput type="number" step="0.1" className="w-full py-2 text-sm" value={data.asam_urat} onChange={(e) => setData('asam_urat', e.target.value)} /></div>
+                                        <div><InputLabel value="Gula (mg/dL)" /><TextInput type="number" className="w-full py-2 text-sm" value={data.gula_darah} onChange={(e) => setData('gula_darah', e.target.value)} /></div>
+                                        <div><InputLabel value="Kolest (mg/dL)" /><TextInput type="number" className="w-full py-2 text-sm" value={data.kolesterol} onChange={(e) => setData('kolesterol', e.target.value)} /></div>
+                                        <div><InputLabel value="Asam Urat" /><TextInput type="number" step="0.1" className="w-full py-2 text-sm" value={data.asam_urat} onChange={(e) => setData('asam_urat', e.target.value)} /></div>
+                                    </div>
+                                </section>
+
+                                <section>
+                                    <div className="flex items-center gap-2 mb-4 border-b border-slate-100 pb-2">
+                                        <div className="h-7 w-7 rounded-lg bg-slate-50 flex items-center justify-center text-slate-600 scale-75"><ClipboardIcon size={18} /></div>
+                                        <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600">3. Riwayat Penyakit</h3>
+                                    </div>
+                                    <div className="grid grid-cols-1 gap-3">
+                                        <div><InputLabel value="Riwayat Penyakit (Dulu/Sekarang)" /><textarea className="w-full rounded-xl border-none bg-slate-50 py-2 px-4 text-sm font-bold min-h-[80px]" value={data.riwayat_penyakit} onChange={(e) => setData('riwayat_penyakit', e.target.value)} placeholder="Contoh: Hipertensi, Diabetes, Jantung..." /></div>
                                     </div>
                                 </section>
                             </div>
@@ -303,7 +313,7 @@ export default function Index({ auth, pemeriksaans, lansias = [], filters, antri
                                 <section>
                                     <div className="flex items-center gap-2 mb-4 border-b border-slate-100 pb-2">
                                         <div className="h-7 w-7 rounded-lg bg-slate-50 flex items-center justify-center text-slate-600 scale-75"><UsersIcon size={18} /></div>
-                                        <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600">3. Kebiasaan & Keluhan</h3>
+                                        <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600">4. Kebiasaan & Keluhan</h3>
                                     </div>
                                     <div className="grid grid-cols-2 gap-2 mb-4">
                                         <Checkbox label="Merokok" value={data.riwayat_merokok} onChange={v => setData('riwayat_merokok', v)} />
@@ -320,9 +330,10 @@ export default function Index({ auth, pemeriksaans, lansias = [], filters, antri
                                 <section>
                                     <div className="flex items-center gap-2 mb-4 border-b border-rose-100 pb-2">
                                         <div className="h-7 w-7 rounded-lg bg-rose-50 flex items-center justify-center text-rose-600 scale-75"><ClipboardIcon size={18} /></div>
-                                        <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-rose-600">4. Intervensi</h3>
+                                        <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-rose-600">5. Intervensi</h3>
                                     </div>
                                     <div className="grid grid-cols-1 gap-3">
+                                        <div><InputLabel value="Obat yang Diberikan" /><TextInput className="w-full py-2 text-sm" value={data.obat} onChange={(e) => setData('obat', e.target.value)} placeholder="Contoh: Amlodipine 5mg, Paracetamol..." /></div>
                                         <div><InputLabel value="Konseling" /><textarea className="w-full rounded-xl border-none bg-slate-50 py-2 px-4 text-sm font-bold min-h-[60px]" value={data.konseling} onChange={(e) => setData('konseling', e.target.value)} /></div>
                                         <div className="flex items-center justify-between gap-3">
                                             <div className="flex-1"><InputLabel value="Status Gizi" /><select className="w-full rounded-xl border-none bg-slate-50 py-2.5 font-bold text-sm" value={data.status_gizi} onChange={(e) => setData('status_gizi', e.target.value)}><option value="Kurus">Kurus</option><option value="Normal">Normal</option><option value="Gemuk">Gemuk</option><option value="Obesitas">Obesitas</option></select></div>
@@ -400,23 +411,35 @@ export default function Index({ auth, pemeriksaans, lansias = [], filters, antri
 
                         <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
                             <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Kebiasaan & Riwayat</h4>
-                            <div className="grid grid-cols-2 gap-4">
-                                <div className="flex flex-wrap gap-2">
-                                    {selectedPemeriksaan?.riwayat_merokok ? <span className="px-2 py-1 bg-rose-100 text-rose-700 rounded-lg text-[10px] font-bold">Merokok</span> : null}
-                                    {selectedPemeriksaan?.riwayat_alkohol ? <span className="px-2 py-1 bg-rose-100 text-rose-700 rounded-lg text-[10px] font-bold">Alkohol</span> : null}
-                                    {selectedPemeriksaan?.gangguan_penglihatan ? <span className="px-2 py-1 bg-amber-100 text-amber-700 rounded-lg text-[10px] font-bold">Gg. Penglihatan</span> : null}
-                                    {selectedPemeriksaan?.gangguan_pendengaran ? <span className="px-2 py-1 bg-amber-100 text-amber-700 rounded-lg text-[10px] font-bold">Gg. Pendengaran</span> : null}
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="space-y-3">
+                                    <p className="text-[9px] font-bold text-slate-400 uppercase">Status & Gangguan</p>
+                                    <div className="flex flex-wrap gap-2">
+                                        {selectedPemeriksaan?.riwayat_merokok ? <span className="px-2 py-1 bg-rose-100 text-rose-700 rounded-lg text-[10px] font-bold">Merokok</span> : null}
+                                        {selectedPemeriksaan?.riwayat_alkohol ? <span className="px-2 py-1 bg-rose-100 text-rose-700 rounded-lg text-[10px] font-bold">Alkohol</span> : null}
+                                        {selectedPemeriksaan?.gangguan_penglihatan ? <span className="px-2 py-1 bg-amber-100 text-amber-700 rounded-lg text-[10px] font-bold">Gg. Penglihatan</span> : null}
+                                        {selectedPemeriksaan?.gangguan_pendengaran ? <span className="px-2 py-1 bg-amber-100 text-amber-700 rounded-lg text-[10px] font-bold">Gg. Pendengaran</span> : null}
+                                    </div>
                                 </div>
-                                <DetailItem label="Olahraga" value={selectedPemeriksaan?.frekuensi_olahraga_per_minggu ? selectedPemeriksaan.frekuensi_olahraga_per_minggu + ' kali / minggu' : '-'} />
+                                <div className="space-y-3">
+                                    <DetailItem label="Olahraga" value={selectedPemeriksaan?.frekuensi_olahraga_per_minggu ? selectedPemeriksaan.frekuensi_olahraga_per_minggu + ' kali / minggu' : '-'} />
+                                    <DetailItem label="Riwayat Penyakit" value={selectedPemeriksaan?.riwayat_penyakit || '-'} />
+                                </div>
                             </div>
                         </div>
 
                         <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                            <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Keluhan & Saran</h4>
-                            <div className="space-y-3">
-                                <div>
-                                    <p className="text-[9px] font-bold text-slate-400 uppercase">Keluhan Utama</p>
-                                    <p className="text-sm text-slate-700 font-medium">{selectedPemeriksaan?.keluhan_utama || '-'}</p>
+                            <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Keluhan & Intervensi</h4>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div className="space-y-3">
+                                    <div>
+                                        <p className="text-[9px] font-bold text-slate-400 uppercase">Keluhan Utama</p>
+                                        <p className="text-sm text-slate-700 font-medium">{selectedPemeriksaan?.keluhan_utama || '-'}</p>
+                                    </div>
+                                    <div>
+                                        <p className="text-[9px] font-bold text-slate-400 uppercase">Obat yang Diberikan</p>
+                                        <p className="text-sm text-slate-700 font-medium">{selectedPemeriksaan?.obat || '-'}</p>
+                                    </div>
                                 </div>
                                 <div>
                                     <p className="text-[9px] font-bold text-slate-400 uppercase">Konseling / Saran</p>

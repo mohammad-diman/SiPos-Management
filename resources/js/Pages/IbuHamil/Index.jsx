@@ -99,37 +99,37 @@ export default function Index({ auth, ibu_hamils, filters }) {
                     </div>
                 </div>
 
-                <div className="bg-white rounded-[2.5rem] shadow-sm border border-slate-100 overflow-hidden text-sm">
+                <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden text-[12px]">
                     <div className="overflow-x-auto">
                         <table className="w-full text-left border-collapse">
                             <thead>
                                 <tr className="bg-slate-50/50 border-b border-slate-100 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-                                    <th className="px-8 py-5">No. Rekam Medis / Nama</th>
-                                    <th className="px-8 py-5">Nama Suami</th>
-                                    <th className="px-8 py-5 text-center">Usia Kehamilan</th>
-                                    <th className="px-8 py-5 text-right">Aksi</th>
+                                    <th className="px-6 py-4">No. Rekam Medis / Nama</th>
+                                    <th className="px-6 py-4">Nama Suami</th>
+                                    <th className="px-6 py-4 text-center">Usia Kehamilan</th>
+                                    <th className="px-6 py-4 text-right">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-50 font-medium text-slate-700">
                                 {ibu_hamils.data.map((ih) => (
                                     <tr key={ih.id} className="hover:bg-slate-50/30 transition-colors group">
-                                        <td className="px-8 py-5 whitespace-nowrap">
+                                        <td className="px-6 py-3 whitespace-nowrap">
                                             <div className="flex items-center gap-3">
-                                                <div className="h-10 w-10 rounded-xl bg-rose-50 flex items-center justify-center text-rose-500 font-black text-xs">{ih.nama?.charAt(0)}</div>
-                                                <div><p className="text-sm font-extrabold text-slate-900">{ih.nama}</p><p className="text-[10px] text-slate-400 font-bold uppercase">{ih.no_rm}</p></div>
+                                                <div className="h-8 w-8 rounded-lg bg-rose-50 flex items-center justify-center text-rose-500 font-black text-[10px]">{ih.nama?.charAt(0)}</div>
+                                                <div><p className="text-[12px] font-extrabold text-slate-900 leading-tight">{ih.nama}</p><p className="text-[9px] text-slate-400 font-bold uppercase">{ih.no_rm}</p></div>
                                             </div>
                                         </td>
-                                        <td className="px-8 py-5 whitespace-nowrap text-sm font-bold text-slate-600">{ih.nama_suami}</td>
-                                        <td className="px-8 py-5 whitespace-nowrap text-center text-sm"><span className="px-3 py-1 bg-rose-50 text-rose-600 rounded-lg text-[10px] font-black">{ih.usia_kehamilan} Minggu</span></td>
-                                        <td className="px-8 py-5 whitespace-nowrap text-right"><div className="flex justify-end gap-2"><ActionButton title="Lihat Detail" onClick={() => { setSelectedIbuHamil(ih); setIsDetailModalOpen(true); }} color="seafoam"><ViewIcon /></ActionButton><ActionButton title="Edit Data" onClick={() => openModal(ih)} color="indigo"><EditIcon /></ActionButton><ActionButton title="Hapus Data" onClick={() => { setDeletingId(ih.id); setIsDeleteModalOpen(true); }} color="rose"><DeleteIcon /></ActionButton></div></td>
+                                        <td className="px-6 py-3 whitespace-nowrap text-[12px] font-bold text-slate-600">{ih.nama_suami}</td>
+                                        <td className="px-6 py-3 whitespace-nowrap text-center text-[12px]"><span className="px-2 py-0.5 bg-rose-50 text-rose-600 rounded-lg text-[10px] font-black">{ih.usia_kehamilan} Minggu</span></td>
+                                        <td className="px-6 py-3 whitespace-nowrap text-right"><div className="flex justify-end gap-1.5"><ActionButton title="Lihat Detail" onClick={() => { setSelectedIbuHamil(ih); setIsDetailModalOpen(true); }} color="seafoam"><ViewIcon /></ActionButton><ActionButton title="Edit Data" onClick={() => openModal(ih)} color="indigo"><EditIcon /></ActionButton><ActionButton title="Hapus Data" onClick={() => { setDeletingId(ih.id); setIsDeleteModalOpen(true); }} color="rose"><DeleteIcon /></ActionButton></div></td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
                     </div>
                     
-                    <div className="px-8 py-5 bg-slate-50/30 border-t border-slate-50 flex items-center justify-between">
-                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Menampilkan {ibu_hamils.from || 0} - {ibu_hamils.to || 0} dari {ibu_hamils.total} Data</span>
+                    <div className="px-6 py-4 bg-slate-50/30 border-t border-slate-50 flex items-center justify-between text-[11px]">
+                        <span className="font-black text-slate-400 uppercase tracking-widest">Menampilkan {ibu_hamils.from || 0} - {ibu_hamils.to || 0} dari {ibu_hamils.total} Data</span>
                         <Pagination links={ibu_hamils.links} />
                     </div>
                 </div>

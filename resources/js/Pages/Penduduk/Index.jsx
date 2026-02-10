@@ -102,11 +102,11 @@ export default function Index({ auth, penduduks, filters }) {
                     </div>
                 </div>
 
-                <div className="bg-white rounded-[2rem] shadow-sm border border-slate-100 overflow-hidden">
-                    <div className="overflow-x-auto">
+                <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden text-[12px]">
+                    <div className="overflow-x-auto text-[12px]">
                         <table className="w-full text-left border-collapse">
                             <thead>
-                                <tr className="bg-slate-50/50 border-b border-slate-100 text-[9px] font-black uppercase tracking-[0.2em] text-slate-400">
+                                <tr className="bg-slate-50/50 border-b border-slate-100 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
                                     <th className="px-6 py-4">Nama Lengkap / NIK</th>
                                     <th className="px-6 py-4 text-center">Jenis Kelamin</th>
                                     <th className="px-6 py-4 text-right">Opsi</th>
@@ -117,22 +117,22 @@ export default function Index({ auth, penduduks, filters }) {
                                     <tr key={p.id} className="hover:bg-slate-50/40 transition-colors group">
                                         <td className="px-6 py-3 whitespace-nowrap">
                                             <div className="flex items-center gap-3.5">
-                                                <div className="h-9 w-9 rounded-xl bg-gradient-to-tr from-slate-100 to-slate-200 flex items-center justify-center text-slate-600 font-black text-xs group-hover:from-indigo-50 group-hover:to-indigo-100 group-hover:text-indigo-600 transition-all duration-500">
+                                                <div className="h-8 w-8 rounded-lg bg-gradient-to-tr from-slate-100 to-slate-200 flex items-center justify-center text-slate-600 font-black text-[10px] group-hover:from-indigo-50 group-hover:to-indigo-100 group-hover:text-indigo-600 transition-all duration-500">
                                                     {p.nama?.charAt(0)}
                                                 </div>
                                                 <div>
-                                                    <p className="text-sm font-extrabold text-slate-900 leading-tight">{p.nama}</p>
-                                                    <p className="text-[10px] text-slate-400 font-bold mt-0.5 uppercase tracking-wider">{p.nik}</p>
+                                                    <p className="text-[12px] font-extrabold text-slate-900 leading-tight">{p.nama}</p>
+                                                    <p className="text-[9px] text-slate-400 font-bold mt-0.5 uppercase tracking-wider">{p.nik}</p>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="px-6 py-3 whitespace-nowrap text-center">
-                                            <span className={`px-3 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider ${p.jenis_kelamin === 'L' ? 'bg-seafoam-50 text-seafoam-600' : 'bg-pink-50 text-pink-600'}`}>
+                                        <td className="px-6 py-3 whitespace-nowrap text-center text-[12px]">
+                                            <span className={`px-2 py-0.5 rounded-lg text-[9px] font-black uppercase tracking-wider ${p.jenis_kelamin === 'L' ? 'bg-seafoam-50 text-seafoam-600' : 'bg-pink-50 text-pink-600'}`}>
                                                 {p.jenis_kelamin === 'L' ? 'Laki-laki' : 'Perempuan'}
                                             </span>
                                         </td>
                                         <td className="px-6 py-3 whitespace-nowrap text-right">
-                                            <div className="flex justify-end gap-2">
+                                            <div className="flex justify-end gap-1.5">
                                                 <ActionButton onClick={() => { setSelectedPenduduk(p); setIsDetailModalOpen(true); }} color="seafoam"><ViewIcon /></ActionButton>
                                                 <ActionButton onClick={() => openModal(p)} color="indigo"><EditIcon /></ActionButton>
                                                 <ActionButton onClick={() => { setDeletingId(p.id); setIsDeleteModalOpen(true); }} color="rose"><DeleteIcon /></ActionButton>
@@ -147,8 +147,8 @@ export default function Index({ auth, penduduks, filters }) {
                         </table>
                     </div>
                     
-                    <div className="px-6 py-4 bg-slate-50/30 border-t border-slate-50 flex flex-col sm:flex-row items-center justify-between gap-3">
-                        <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">
+                    <div className="px-6 py-4 bg-slate-50/30 border-t border-slate-50 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px]">
+                        <p className="font-black text-slate-400 uppercase tracking-widest text-[10px]">
                             Menampilkan <span className="text-slate-700">{penduduks.from || 0}</span> - <span className="text-slate-700">{penduduks.to || 0}</span> dari <span className="text-slate-700">{penduduks.total}</span> Penduduk
                         </p>
                         <Pagination links={penduduks.links} />

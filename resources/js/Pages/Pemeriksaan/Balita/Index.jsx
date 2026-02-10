@@ -181,49 +181,49 @@ export default function Index({ auth, pemeriksaans, balitas = [], filters, antri
                     </PrimaryButton>
                 </div>
 
-                <div className="bg-white rounded-[3rem] shadow-sm border border-slate-100 overflow-hidden text-sm">
-                    <div className="overflow-x-auto">
+                <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden text-[12px]">
+                    <div className="overflow-x-auto text-[12px]">
                         <table className="w-full text-left border-collapse">
                             <thead>
                                 <tr className="bg-slate-50/50 border-b border-slate-100 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-                                    <th className="px-10 py-6 text-sm">Tanggal</th>
-                                    <th className="px-10 py-6 text-sm">Nama Balita</th>
-                                    <th className="px-10 py-6 text-sm text-center">BB / TB / LK</th>
-                                    <th className="px-10 py-6 text-sm text-center">Status Gizi</th>
-                                    <th className="px-10 py-6 text-sm text-right">Aksi</th>
+                                    <th className="px-6 py-4">Tanggal</th>
+                                    <th className="px-6 py-4">Nama Balita</th>
+                                    <th className="px-6 py-4 text-center">BB / TB / LK</th>
+                                    <th className="px-6 py-4 text-center">Status Gizi</th>
+                                    <th className="px-6 py-4 text-right">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-50 font-medium text-slate-700">
                                 {pemeriksaans.data.map((p) => (
                                                                             <tr key={p.id} className="hover:bg-slate-50/40 transition-colors group">
-                                                                            <td className="px-10 py-6 whitespace-nowrap font-bold text-slate-900">{p.tanggal_periksa}</td>
-                                                                            <td className="px-10 py-6 whitespace-nowrap">
-                                                                                <div className="flex items-center gap-4 text-sm">
-                                                                                    <div className="h-9 w-9 rounded-2xl bg-seafoam-50 flex items-center justify-center text-seafoam-600 font-black text-sm">{p.balita?.nama?.charAt(0)}</div>
-                                                                                    <div><p className="text-sm font-extrabold text-slate-900 leading-tight">{p.balita?.nama}</p><p className="text-[10px] text-slate-400 font-bold mt-1 uppercase tracking-wider">{p.balita?.no_rm}</p></div>
+                                                                            <td className="px-6 py-3 whitespace-nowrap font-bold text-slate-900">{p.tanggal_periksa}</td>
+                                                                            <td className="px-6 py-3 whitespace-nowrap">
+                                                                                <div className="flex items-center gap-3">
+                                                                                    <div className="h-8 w-8 rounded-lg bg-seafoam-50 flex items-center justify-center text-seafoam-600 font-black text-[10px]">{p.balita?.nama?.charAt(0)}</div>
+                                                                                    <div><p className="text-[12px] font-extrabold text-slate-900 leading-tight">{p.balita?.nama}</p><p className="text-[9px] text-slate-400 font-bold mt-0.5 uppercase tracking-wider">{p.balita?.no_rm}</p></div>
                                                                                 </div>
                                                                             </td>
-                                                                            <td className="px-10 py-6 whitespace-nowrap text-center font-bold text-slate-600">{p.berat_badan}kg / {p.tinggi_badan}cm / {p.lingkar_kepala}cm</td>
-                                                                            <td className="px-10 py-6 whitespace-nowrap text-center text-sm">
-                                                                                <span className={`px-4 py-1.5 rounded-xl text-[10px] font-black uppercase ${p.status_gizi === 'Baik' ? 'bg-seafoam-50 text-seafoam-600' : 'bg-amber-50 text-amber-600'}`}>{p.status_gizi}</span>
+                                                                            <td className="px-6 py-3 whitespace-nowrap text-center font-bold text-slate-600">{p.berat_badan}kg / {p.tinggi_badan}cm / {p.lingkar_kepala}cm</td>
+                                                                            <td className="px-6 py-3 whitespace-nowrap text-center">
+                                                                                <span className={`px-2 py-0.5 rounded-lg text-[9px] font-black uppercase ${p.status_gizi === 'Baik' ? 'bg-seafoam-50 text-seafoam-600' : 'bg-amber-50 text-amber-600'}`}>{p.status_gizi}</span>
                                                                             </td>
-                                                                            <td className="px-10 py-6 whitespace-nowrap text-right">
-                                                                                <div className="flex justify-end gap-3 text-sm">
-                                                                                    <button onClick={() => openDetailModal(p)} className="p-2 hover:text-seafoam-600 transition-colors" title="Lihat Detail"><ViewIcon /></button>
-                                                                                    <button onClick={() => openModal(p)} className="p-2 hover:text-indigo-600 transition-colors" title="Edit"><EditIcon /></button>
-                                                                                    <button onClick={() => { setDeletingId(p.id); setIsDeleteModalOpen(true); }} className="p-2 hover:text-rose-600 transition-colors" title="Hapus"><DeleteIcon /></button>
+                                                                            <td className="px-6 py-3 whitespace-nowrap text-right">
+                                                                                <div className="flex justify-end gap-1.5">
+                                                                                    <button onClick={() => openDetailModal(p)} className="p-1.5 hover:text-seafoam-600 transition-colors" title="Lihat Detail"><ViewIcon /></button>
+                                                                                    <button onClick={() => openModal(p)} className="p-1.5 hover:text-indigo-600 transition-colors" title="Edit"><EditIcon /></button>
+                                                                                    <button onClick={() => { setDeletingId(p.id); setIsDeleteModalOpen(true); }} className="p-1.5 hover:text-rose-600 transition-colors" title="Hapus"><DeleteIcon /></button>
                                                                                 </div>
                                                                             </td>
                                                                         </tr>                                ))}
                                 {pemeriksaans.data.length === 0 && (
-                                    <tr><td colSpan="5" className="px-10 py-20 text-center text-slate-400 font-bold text-xs uppercase tracking-widest italic font-medium">Tidak ada data pemeriksaan ditemukan</td></tr>
+                                    <tr><td colSpan="5" className="px-6 py-12 text-center text-slate-400 font-bold text-[11px] uppercase tracking-widest italic">Tidak ada data pemeriksaan ditemukan</td></tr>
                                 )}
                             </tbody>
                         </table>
                     </div>
                     
-                    <div className="px-10 py-6 bg-slate-50/30 border-t border-slate-50 flex flex-col sm:flex-row items-center justify-between gap-4">
-                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                    <div className="px-6 py-4 bg-slate-50/30 border-t border-slate-50 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px]">
+                        <p className="font-black text-slate-400 uppercase tracking-widest text-[10px]">
                             Menampilkan {pemeriksaans.from || 0} - {pemeriksaans.to || 0} dari {pemeriksaans.total} Data
                         </p>
                         <Pagination links={pemeriksaans.links} />

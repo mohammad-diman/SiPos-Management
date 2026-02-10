@@ -163,50 +163,50 @@ export default function Index({ auth, pemeriksaans, ibu_hamils = [], filters, an
                     </PrimaryButton>
                 </div>
 
-                <div className="bg-white rounded-[2.5rem] shadow-sm border border-slate-100 overflow-hidden text-sm">
-                    <div className="overflow-x-auto">
+                <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden text-[12px]">
+                    <div className="overflow-x-auto text-[12px]">
                         <table className="w-full text-left border-collapse">
                             <thead>
                                 <tr className="bg-slate-50/50 border-b border-slate-100 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-                                    <th className="px-8 py-5 text-sm">Tanggal</th>
-                                    <th className="px-8 py-5 text-sm">Nama Ibu</th>
-                                    <th className="px-8 py-5 text-sm text-center">Tensi / BB / TB</th>
-                                    <th className="px-8 py-5 text-sm text-center">DJJ / Fe</th>
-                                    <th className="px-8 py-5 text-sm text-right">Aksi</th>
+                                    <th className="px-6 py-4">Tanggal</th>
+                                    <th className="px-6 py-4">Nama Ibu</th>
+                                    <th className="px-6 py-4 text-center">Tensi / BB / TB</th>
+                                    <th className="px-6 py-4 text-center">DJJ / Fe</th>
+                                    <th className="px-6 py-4 text-right">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-50 font-medium text-slate-700">
                                 {pemeriksaans.data.map((p) => (
                                     <tr key={p.id} className="hover:bg-slate-50/30 transition-colors group">
-                                        <td className="px-8 py-5 whitespace-nowrap font-bold text-slate-900">{p.tanggal_periksa}</td>
-                                        <td className="px-8 py-5 whitespace-nowrap">
-                                            <div className="flex items-center gap-4">
-                                                <div className="h-10 w-10 rounded-xl bg-rose-50 flex items-center justify-center text-rose-500 font-black text-xs">{p.ibu_hamil?.nama?.charAt(0)}</div>
-                                                <div><p className="text-sm font-extrabold text-slate-900">{p.ibu_hamil?.nama}</p><p className="text-[10px] text-slate-400 font-bold uppercase">{p.ibu_hamil?.no_rm}</p></div>
+                                        <td className="px-6 py-3 whitespace-nowrap font-bold text-slate-900">{p.tanggal_periksa}</td>
+                                        <td className="px-6 py-3 whitespace-nowrap">
+                                            <div className="flex items-center gap-3">
+                                                <div className="h-8 w-8 rounded-lg bg-rose-50 flex items-center justify-center text-rose-500 font-black text-[10px]">{p.ibu_hamil?.nama?.charAt(0)}</div>
+                                                <div><p className="text-[12px] font-extrabold text-slate-900 leading-tight">{p.ibu_hamil?.nama}</p><p className="text-[9px] text-slate-400 font-bold uppercase">{p.ibu_hamil?.no_rm}</p></div>
                                             </div>
                                         </td>
-                                        <td className="px-8 py-5 whitespace-nowrap text-center font-bold text-slate-600">{p.tekanan_darah} / {p.berat_badan}kg / {p.tinggi_badan}cm</td>
-                                        <td className="px-8 py-5 whitespace-nowrap text-center">
-                                            <span className="px-3 py-1 bg-rose-50 text-rose-600 rounded-lg text-[10px] font-black">{p.djj} bpm / {p.jumlah_fe} Tab</span>
+                                        <td className="px-6 py-3 whitespace-nowrap text-center font-bold text-slate-600">{p.tekanan_darah} / {p.berat_badan}kg / {p.tinggi_badan}cm</td>
+                                        <td className="px-6 py-3 whitespace-nowrap text-center">
+                                            <span className="px-2 py-0.5 bg-rose-50 text-rose-600 rounded-lg text-[9px] font-black">{p.djj} bpm / {p.jumlah_fe} Tab</span>
                                         </td>
-                                        <td className="px-8 py-5 whitespace-nowrap text-right">
-                                            <div className="flex justify-end gap-2 text-slate-400">
-                                                <button onClick={() => openDetailModal(p)} className="p-2 hover:text-seafoam-600 transition-colors" title="Lihat Detail"><ViewIcon /></button>
-                                                <button onClick={() => openModal(p)} className="p-2 hover:text-indigo-600 transition-colors" title="Edit"><EditIcon /></button>
-                                                <button onClick={() => { setDeletingId(p.id); setIsDeleteModalOpen(true); }} className="p-2 hover:text-rose-600 transition-colors" title="Hapus"><DeleteIcon /></button>
+                                        <td className="px-6 py-3 whitespace-nowrap text-right">
+                                            <div className="flex justify-end gap-1.5 text-slate-400">
+                                                <button onClick={() => openDetailModal(p)} className="p-1.5 hover:text-seafoam-600 transition-colors" title="Lihat Detail"><ViewIcon /></button>
+                                                <button onClick={() => openModal(p)} className="p-1.5 hover:text-indigo-600 transition-colors" title="Edit"><EditIcon /></button>
+                                                <button onClick={() => { setDeletingId(p.id); setIsDeleteModalOpen(true); }} className="p-1.5 hover:text-rose-600 transition-colors" title="Hapus"><DeleteIcon /></button>
                                             </div>
                                         </td>
                                     </tr>
                                 ))}
                                 {pemeriksaans.data.length === 0 && (
-                                    <tr><td colSpan="5" className="px-8 py-10 text-center text-slate-400 font-medium italic">Tidak ada data pemeriksaan ditemukan.</td></tr>
+                                    <tr><td colSpan="5" className="px-6 py-12 text-center text-slate-400 font-medium italic text-[11px] font-bold uppercase tracking-widest">Tidak ada data pemeriksaan ditemukan.</td></tr>
                                 )}
                             </tbody>
                         </table>
                     </div>
                     
-                    <div className="px-8 py-5 bg-slate-50/30 border-t border-slate-50 flex flex-col sm:flex-row items-center justify-between gap-4">
-                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Menampilkan {pemeriksaans.from || 0} - {pemeriksaans.to || 0} dari {pemeriksaans.total} Data</span>
+                    <div className="px-6 py-4 bg-slate-50/30 border-t border-slate-50 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px]">
+                        <span className="font-black text-slate-400 uppercase tracking-widest text-[10px]">Menampilkan {pemeriksaans.from || 0} - {pemeriksaans.to || 0} dari {pemeriksaans.total} Data</span>
                         <Pagination links={pemeriksaans.links} />
                     </div>
                 </div>

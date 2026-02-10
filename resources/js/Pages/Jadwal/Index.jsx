@@ -75,27 +75,27 @@ export default function Index({ auth, jadwals = [] }) {
                     <PrimaryButton onClick={() => openModal()} className="rounded-2xl px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 border-none font-bold text-white text-[10px] uppercase tracking-widest shrink-0">+ Tambah Jadwal</PrimaryButton>
                 </div>
 
-                <div className="bg-white rounded-[2.5rem] shadow-sm border border-slate-100 overflow-hidden">
-                    <div className="overflow-x-auto">
+                <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden text-[12px]">
+                    <div className="overflow-x-auto text-[12px]">
                         <table className="w-full text-left border-collapse">
                             <thead>
                                 <tr className="bg-slate-50/50 border-b border-slate-100 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-                                    <th className="px-8 py-5">Kegiatan</th>
-                                    <th className="px-8 py-5">Tanggal & Waktu</th>
-                                    <th className="px-8 py-5">Lokasi</th>
-                                    <th className="px-8 py-5 text-right">Aksi</th>
+                                    <th className="px-6 py-4">Kegiatan</th>
+                                    <th className="px-6 py-4">Tanggal & Waktu</th>
+                                    <th className="px-6 py-4">Lokasi</th>
+                                    <th className="px-6 py-4 text-right">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-50 font-medium text-slate-700">
                                 {paginatedJadwals.map((j) => (
                                     <tr key={j.id} className="hover:bg-slate-50/30 transition-colors group">
-                                        <td className="px-8 py-5 whitespace-nowrap"><p className="text-sm font-extrabold text-slate-900">{j.nama_kegiatan}</p></td>
-                                        <td className="px-8 py-5 whitespace-nowrap text-xs font-bold text-slate-500">{j.tanggal} <span className="mx-2 text-slate-300">|</span> {j.waktu_mulai} - {j.waktu_selesai}</td>
-                                        <td className="px-8 py-5 whitespace-nowrap text-xs font-bold text-slate-500 uppercase tracking-wider">{j.lokasi}</td>
-                                        <td className="px-8 py-5 whitespace-nowrap text-right">
-                                            <div className="flex justify-end gap-2 text-slate-400">
-                                                <button onClick={() => openModal(j)} className="p-2 hover:text-indigo-600 transition-colors"><EditIcon /></button>
-                                                <button onClick={() => { setDeletingId(j.id); setIsDeleteModalOpen(true); }} className="p-2 hover:text-rose-600 transition-colors"><DeleteIcon /></button>
+                                        <td className="px-6 py-3 whitespace-nowrap"><p className="text-[12px] font-extrabold text-slate-900">{j.nama_kegiatan}</p></td>
+                                        <td className="px-6 py-3 whitespace-nowrap text-[11px] font-bold text-slate-500">{j.tanggal} <span className="mx-2 text-slate-300">|</span> {j.waktu_mulai} - {j.waktu_selesai}</td>
+                                        <td className="px-6 py-3 whitespace-nowrap text-[11px] font-bold text-slate-500 uppercase tracking-wider">{j.lokasi}</td>
+                                        <td className="px-6 py-3 whitespace-nowrap text-right">
+                                            <div className="flex justify-end gap-1.5 text-slate-400">
+                                                <button onClick={() => openModal(j)} className="p-1.5 hover:text-indigo-600 transition-colors"><EditIcon /></button>
+                                                <button onClick={() => { setDeletingId(j.id); setIsDeleteModalOpen(true); }} className="p-1.5 hover:text-rose-600 transition-colors"><DeleteIcon /></button>
                                             </div>
                                         </td>
                                     </tr>
@@ -104,8 +104,8 @@ export default function Index({ auth, jadwals = [] }) {
                         </table>
                     </div>
                     
-                    <div className="px-8 py-5 bg-slate-50/30 border-t border-slate-50 flex items-center justify-between">
-                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Menampilkan {paginatedJadwals.length} dari {jadwals.length} Data</span>
+                    <div className="px-6 py-4 bg-slate-50/30 border-t border-slate-50 flex items-center justify-between text-[11px]">
+                        <span className="font-black text-slate-400 uppercase tracking-widest text-[10px]">Menampilkan {paginatedJadwals.length} dari {jadwals.length} Data</span>
                         <div className="flex gap-2">
                             <button onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))} disabled={currentPage === 1} className="p-2 rounded-xl bg-white border border-slate-100 text-slate-400 hover:text-indigo-600 disabled:opacity-30 transition-all"><svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M15 19l-7-7 7-7" /></svg></button>
                             <div className="flex items-center px-4 bg-white border border-slate-100 rounded-xl text-xs font-black text-slate-600">{currentPage} / {totalPages || 1}</div>

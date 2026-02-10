@@ -102,34 +102,34 @@ export default function Index({ auth, lansias, filters }) {
                     </div>
                 </div>
 
-                <div className="bg-white rounded-[2.5rem] shadow-sm border border-slate-100 overflow-hidden">
-                    <div className="overflow-x-auto">
+                <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden text-[12px]">
+                    <div className="overflow-x-auto text-[12px]">
                         <table className="w-full text-left border-collapse">
                             <thead>
                                 <tr className="bg-slate-50/50 border-b border-slate-100 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-                                    <th className="px-8 py-5">No. Rekam Medis / Nama</th>
-                                    <th className="px-8 py-5">NIK</th>
-                                    <th className="px-8 py-5 text-center">Jenis Kelamin</th>
-                                    <th className="px-8 py-5 text-right">Aksi</th>
+                                    <th className="px-6 py-4">No. Rekam Medis / Nama</th>
+                                    <th className="px-6 py-4">NIK</th>
+                                    <th className="px-6 py-4 text-center">Jenis Kelamin</th>
+                                    <th className="px-6 py-4 text-right">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-50 font-medium text-slate-700">
                                 {lansias.data.map((l) => (
                                     <tr key={l.id} className="hover:bg-slate-50/30 transition-colors group">
-                                        <td className="px-8 py-5 whitespace-nowrap">
+                                        <td className="px-6 py-3 whitespace-nowrap">
                                             <div className="flex items-center gap-3">
-                                                <div className="h-10 w-10 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600 font-black text-xs">{l.nama?.charAt(0)}</div>
-                                                <div><p className="text-sm font-extrabold text-slate-900">{l.nama}</p><p className="text-[10px] text-slate-400 font-bold uppercase">{l.no_rm}</p></div>
+                                                <div className="h-8 w-8 rounded-lg bg-amber-50 flex items-center justify-center text-amber-600 font-black text-[10px]">{l.nama?.charAt(0)}</div>
+                                                <div><p className="text-[12px] font-extrabold text-slate-900 leading-tight">{l.nama}</p><p className="text-[9px] text-slate-400 font-bold uppercase">{l.no_rm}</p></div>
                                             </div>
                                         </td>
-                                        <td className="px-8 py-5 whitespace-nowrap text-xs font-bold text-slate-500">{l.nik}</td>
-                                        <td className="px-8 py-5 whitespace-nowrap text-center">
-                                            <span className={`px-2.5 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider ${l.jenis_kelamin === 'L' ? 'bg-seafoam-50 text-seafoam-600' : 'bg-pink-50 text-pink-600'}`}>
+                                        <td className="px-6 py-3 whitespace-nowrap text-xs font-bold text-slate-500">{l.nik}</td>
+                                        <td className="px-6 py-3 whitespace-nowrap text-center">
+                                            <span className={`px-2 py-0.5 rounded-lg text-[9px] font-black uppercase tracking-wider ${l.jenis_kelamin === 'L' ? 'bg-seafoam-50 text-seafoam-600' : 'bg-pink-50 text-pink-600'}`}>
                                                 {l.jenis_kelamin === 'L' ? 'Laki-laki' : 'Perempuan'}
                                             </span>
                                         </td>
-                                        <td className="px-8 py-5 whitespace-nowrap text-right">
-                                            <div className="flex justify-end gap-2 text-slate-400">
+                                        <td className="px-6 py-3 whitespace-nowrap text-right">
+                                            <div className="flex justify-end gap-1.5 text-slate-400">
                                                 <ActionButton title="Lihat Detail" onClick={() => { setSelectedLansia(l); setIsDetailModalOpen(true); }} color="seafoam"><ViewIcon /></ActionButton>
                                                 <ActionButton title="Edit Data" onClick={() => openModal(l)} color="indigo"><EditIcon /></ActionButton>
                                                 <ActionButton title="Hapus Data" onClick={() => { setDeletingId(l.id); setIsDeleteModalOpen(true); }} color="rose"><DeleteIcon /></ActionButton>
@@ -141,8 +141,8 @@ export default function Index({ auth, lansias, filters }) {
                         </table>
                     </div>
                     
-                    <div className="px-8 py-5 bg-slate-50/30 border-t border-slate-50 flex items-center justify-between">
-                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Menampilkan {lansias.from || 0} - {lansias.to || 0} dari {lansias.total} Data</span>
+                    <div className="px-6 py-4 bg-slate-50/30 border-t border-slate-50 flex items-center justify-between text-[11px]">
+                        <span className="font-black text-slate-400 uppercase tracking-widest">Menampilkan {lansias.from || 0} - {lansias.to || 0} dari {lansias.total} Data</span>
                         <Pagination links={lansias.links} />
                     </div>
                 </div>

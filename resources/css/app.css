@@ -1,3 +1,55 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    /* Styling scrollbar global - disamakan dengan sidebar */
+    ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+    }
+
+    /* Jalur (Track) menggunakan warna background sidebar (seafoam-950) */
+    ::-webkit-scrollbar-track {
+        background: #0d323a; /* seafoam-950 */
+    }
+
+    /* Batang (Thumb) menggunakan warna biru terang agar terlihat jelas di atas jalur gelap */
+    ::-webkit-scrollbar-thumb {
+        background: #7ddde6; /* seafoam-400 */
+        border-radius: 10px;
+        border: 2px solid #0d323a; /* Padding agar thumb terlihat ramping dan rapi */
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #93eaee; /* seafoam-300 (lebih terang saat hover) */
+    }
+
+    /* Pastikan scrollbar untuk elemen html dan body juga sama */
+    html::-webkit-scrollbar-track,
+    body::-webkit-scrollbar-track {
+        background: #0d323a;
+    }
+}
+
+@layer components {
+    /* Hapus override khusus karena sekarang semuanya sudah sama secara global */
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: #0d323a;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #7ddde6;
+        border: 2px solid #0d323a;
+    }
+}
+
+@keyframes logo-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.animate-logo-pulse {
+    animation: logo-pulse 2s ease-in-out infinite;
+}

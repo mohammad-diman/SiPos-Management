@@ -91,32 +91,32 @@ export default function Index({ auth, users, filters }) {
                     )}
                 </div>
 
-                <div className="bg-white rounded-[2.5rem] shadow-sm border border-slate-100 overflow-hidden">
-                    <div className="overflow-x-auto">
+                <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden text-[12px]">
+                    <div className="overflow-x-auto text-[12px]">
                         <table className="w-full text-left border-collapse">
                             <thead>
                                 <tr className="bg-slate-50/50 border-b border-slate-100 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-                                    <th className="px-10 py-6 text-sm">Informasi Petugas</th>
-                                    <th className="px-10 py-6 text-sm">Hak Akses / Role</th>
-                                    {auth.user.role === 'admin' && <th className="px-10 py-6 text-sm text-right">Aksi</th>}
+                                    <th className="px-6 py-4">Informasi Petugas</th>
+                                    <th className="px-6 py-4">Hak Akses / Role</th>
+                                    {auth.user.role === 'admin' && <th className="px-6 py-4 text-right">Aksi</th>}
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-50 font-medium text-slate-700">
                                 {users.data.map((u) => (
                                     <tr key={u.id} className="hover:bg-slate-50/30 transition-colors group">
-                                        <td className="px-10 py-6 whitespace-nowrap">
-                                            <div className="flex items-center gap-4">
-                                                <div className={`h-9 w-9 rounded-2xl flex items-center justify-center font-black text-sm ${u.role === 'admin' ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-600'}`}>
+                                        <td className="px-6 py-3 whitespace-nowrap">
+                                            <div className="flex items-center gap-3">
+                                                <div className={`h-8 w-8 rounded-lg flex items-center justify-center font-black text-[10px] ${u.role === 'admin' ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-600'}`}>
                                                     {u.name.charAt(0)}
                                                 </div>
                                                 <div>
-                                                    <p className="text-sm font-extrabold text-slate-900">{u.name} {auth.user.id === u.id && <span className="ml-2 px-2 py-0.5 bg-seafoam-50 text-seafoam-600 text-[9px] rounded-full uppercase">Anda</span>}</p>
-                                                    <p className="text-xs text-slate-400 font-bold tracking-tight">{u.email}</p>
+                                                    <p className="text-[12px] font-extrabold text-slate-900 leading-tight">{u.name} {auth.user.id === u.id && <span className="ml-2 px-1.5 py-0.5 bg-seafoam-50 text-seafoam-600 text-[8px] rounded-full uppercase">Anda</span>}</p>
+                                                    <p className="text-[10px] text-slate-400 font-bold tracking-tight mt-0.5">{u.email}</p>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="px-10 py-6 whitespace-nowrap">
-                                            <span className={`px-4 py-1.5 rounded-xl text-[10px] font-black uppercase tracking-widest ${
+                                        <td className="px-6 py-3 whitespace-nowrap text-[12px]">
+                                            <span className={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-widest ${
                                                 u.role === 'admin' ? 'bg-indigo-50 text-indigo-600' : 
                                                 u.role === 'kader' ? 'bg-seafoam-50 text-seafoam-600' : 'bg-slate-50 text-slate-600'
                                             }`}>
@@ -124,11 +124,11 @@ export default function Index({ auth, users, filters }) {
                                             </span>
                                         </td>
                                         {auth.user.role === 'admin' && (
-                                            <td className="px-10 py-6 whitespace-nowrap text-right">
-                                                <div className="flex justify-end gap-3 text-sm">
-                                                    <button onClick={() => openModal(u)} className="p-2.5 rounded-xl bg-slate-50 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 transition-all shadow-sm"><EditIcon /></button>
+                                            <td className="px-6 py-3 whitespace-nowrap text-right">
+                                                <div className="flex justify-end gap-1.5">
+                                                    <button onClick={() => openModal(u)} className="p-1.5 rounded-lg bg-slate-50 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 transition-all shadow-sm"><EditIcon /></button>
                                                     {auth.user.id !== u.id && (
-                                                        <button onClick={() => { setDeletingId(u.id); setIsDeleteModalOpen(true); }} className="p-2.5 rounded-xl bg-slate-50 text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-all shadow-sm"><DeleteIcon /></button>
+                                                        <button onClick={() => { setDeletingId(u.id); setIsDeleteModalOpen(true); }} className="p-1.5 rounded-lg bg-slate-50 text-slate-400 hover:text-rose-600 hover:bg-rose-50 transition-all shadow-sm"><DeleteIcon /></button>
                                                     )}
                                                 </div>
                                             </td>
@@ -139,8 +139,8 @@ export default function Index({ auth, users, filters }) {
                         </table>
                     </div>
                     
-                    <div className="px-10 py-6 bg-slate-50/30 border-t border-slate-50 flex flex-col sm:flex-row items-center justify-between gap-4">
-                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Halaman {users.current_page} • Menampilkan {users.data.length} dari {users.total} Data</span>
+                    <div className="px-6 py-4 bg-slate-50/30 border-t border-slate-50 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px]">
+                        <span className="font-black text-slate-400 uppercase tracking-widest text-[10px]">Halaman {users.current_page} • Menampilkan {users.data.length} dari {users.total} Data</span>
                         <Pagination links={users.links} />
                     </div>
                 </div>

@@ -2,6 +2,7 @@ import { Link, usePage } from '@inertiajs/react';
 import { useState, useEffect, Children, isValidElement } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPersonWalkingWithCane, faBaby, faCalendar, faGear, faUsers, faUserNurse } from '@fortawesome/free-solid-svg-icons';
+import ApplicationLogo from './ApplicationLogo';
 
 export default function Sidebar({ user }) {
     const { url } = usePage();
@@ -84,7 +85,7 @@ export default function Sidebar({ user }) {
             <div className="p-6 pb-8">
                 <Link href="/" className="flex items-center gap-3 group">
                     <div className="h-10 w-10 bg-white rounded-xl flex items-center justify-center group-hover:rotate-[10deg] transition-all duration-500 shadow-lg shadow-black/20">
-                        <svg className="w-6 h-6 text-seafoam-700" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                        <ApplicationLogo className="w-7 h-7 text-seafoam-700" />
                     </div>
                     <div>
                         <h1 className="text-xl font-black tracking-tighter leading-none">SiPos</h1>

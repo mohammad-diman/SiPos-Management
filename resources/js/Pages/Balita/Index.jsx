@@ -98,37 +98,37 @@ export default function Index({ auth, balitas, filters }) {
                     </div>
                 </div>
 
-                <div className="bg-white rounded-[2.5rem] shadow-sm border border-slate-100 overflow-hidden">
-                    <div className="overflow-x-auto">
+                <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
+                    <div className="overflow-x-auto text-[12px]">
                         <table className="w-full text-left border-collapse">
                             <thead>
                                 <tr className="bg-slate-50/50 border-b border-slate-100 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-                                    <th className="px-8 py-5">RM / Nama</th>
-                                    <th className="px-8 py-5">NIK</th>
-                                    <th className="px-8 py-5 text-center">Jenis Kelamin</th>
-                                    <th className="px-8 py-5 text-right">Aksi</th>
+                                    <th className="px-6 py-4">RM / Nama</th>
+                                    <th className="px-6 py-4">NIK</th>
+                                    <th className="px-6 py-4 text-center">Jenis Kelamin</th>
+                                    <th className="px-6 py-4 text-right">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-slate-50 font-medium text-slate-700">
                                 {balitas.data.map((b) => (
                                     <tr key={b.id} className="hover:bg-slate-50/30 transition-colors group">
-                                        <td className="px-8 py-5 whitespace-nowrap">
+                                        <td className="px-6 py-3 whitespace-nowrap">
                                             <div className="flex items-center gap-3">
-                                                <div className="h-10 w-10 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-600 font-black text-xs">{b.nama?.charAt(0)}</div>
-                                                <div><p className="text-sm font-extrabold text-slate-900">{b.nama}</p><p className="text-[10px] text-slate-400 font-bold uppercase">{b.no_rm}</p></div>
+                                                <div className="h-8 w-8 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600 font-black text-[10px]">{b.nama?.charAt(0)}</div>
+                                                <div><p className="text-[12px] font-extrabold text-slate-900 leading-tight">{b.nama}</p><p className="text-[9px] text-slate-400 font-bold uppercase">{b.no_rm}</p></div>
                                             </div>
                                         </td>
-                                        <td className="px-8 py-5 whitespace-nowrap text-xs font-bold text-slate-500">{b.nik}</td>
-                                        <td className="px-8 py-5 whitespace-nowrap text-center"><span className={`px-2.5 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider ${b.jenis_kelamin === 'L' ? 'bg-seafoam-50 text-seafoam-600' : 'bg-pink-50 text-pink-600'}`}>{b.jenis_kelamin === 'L' ? 'Laki-laki' : 'Perempuan'}</span></td>
-                                        <td className="px-8 py-5 whitespace-nowrap text-right"><div className="flex justify-end gap-2"><ActionButton title="Lihat Detail" onClick={() => { setSelectedBalita(b); setIsDetailModalOpen(true); }} color="seafoam"><ViewIcon /></ActionButton><ActionButton title="Edit Data" onClick={() => openModal(b)} color="indigo"><EditIcon /></ActionButton><ActionButton title="Hapus Data" onClick={() => { setDeletingId(b.id); setIsDeleteModalOpen(true); }} color="rose"><DeleteIcon /></ActionButton></div></td>
+                                        <td className="px-6 py-3 whitespace-nowrap text-xs font-bold text-slate-500">{b.nik}</td>
+                                        <td className="px-6 py-3 whitespace-nowrap text-center"><span className={`px-2 py-0.5 rounded-lg text-[9px] font-black uppercase tracking-wider ${b.jenis_kelamin === 'L' ? 'bg-seafoam-50 text-seafoam-600' : 'bg-pink-50 text-pink-600'}`}>{b.jenis_kelamin === 'L' ? 'Laki-laki' : 'Perempuan'}</span></td>
+                                        <td className="px-6 py-3 whitespace-nowrap text-right"><div className="flex justify-end gap-1.5"><ActionButton title="Lihat Detail" onClick={() => { setSelectedBalita(b); setIsDetailModalOpen(true); }} color="seafoam"><ViewIcon /></ActionButton><ActionButton title="Edit Data" onClick={() => openModal(b)} color="indigo"><EditIcon /></ActionButton><ActionButton title="Hapus Data" onClick={() => { setDeletingId(b.id); setIsDeleteModalOpen(true); }} color="rose"><DeleteIcon /></ActionButton></div></td>
                                     </tr>
                                 ))}
                             </tbody>
                         </table>
                     </div>
                     
-                    <div className="px-8 py-5 bg-slate-50/30 border-t border-slate-50 flex items-center justify-between">
-                        <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Menampilkan {balitas.from || 0} - {balitas.to || 0} dari {balitas.total} Data</span>
+                    <div className="px-6 py-4 bg-slate-50/30 border-t border-slate-50 flex items-center justify-between text-[11px]">
+                        <span className="font-black text-slate-400 uppercase tracking-widest">Menampilkan {balitas.from || 0} - {balitas.to || 0} dari {balitas.total} Data</span>
                         <Pagination links={balitas.links} />
                     </div>
                 </div>

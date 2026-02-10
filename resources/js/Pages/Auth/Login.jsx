@@ -32,8 +32,8 @@ export default function Login({ status, canResetPassword }) {
                     <div className="absolute -top-24 -left-24 w-64 h-64 bg-seafoam-400/10 rounded-full blur-3xl"></div>
                     <div className="absolute -bottom-24 -right-24 w-64 h-64 bg-seafoam-400/10 rounded-full blur-3xl"></div>
                     
-                    <div className="relative z-10 mb-8 rounded-[2rem] bg-white/10 p-6 backdrop-blur-xl border border-white/10 shadow-2xl">
-                        <ApplicationLogo className="h-16 w-20 fill-current text-white" />
+                    <div className="group relative z-10 mb-8 rounded-[2.5rem] bg-white/10 p-8 backdrop-blur-xl border border-white/10 shadow-2xl hover:bg-white/20 transition-all duration-500 cursor-default">
+                        <ApplicationLogo className="h-20 w-24 text-white transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3" />
                     </div>
                     <div className="relative z-10 text-center">
                         <h1 className="text-3xl font-black tracking-tighter uppercase leading-none">
@@ -54,9 +54,9 @@ export default function Login({ status, canResetPassword }) {
                 {/* Right Side: Login Form */}
                 <div className="flex w-full flex-col justify-center p-8 md:w-[60%] lg:p-14 relative bg-white">
                     {/* Mobile Logo Branding */}
-                    <div className="mb-10 md:hidden flex flex-col items-center">
-                        <div className="rounded-2xl bg-seafoam-50 p-3 border border-seafoam-100">
-                            <ApplicationLogo className="h-8 w-10 fill-current text-seafoam-600" />
+                    <div className="group mb-10 md:hidden flex flex-col items-center">
+                        <div className="rounded-2xl bg-seafoam-50 p-4 border border-seafoam-100 group-hover:bg-seafoam-100 transition-colors duration-500">
+                            <ApplicationLogo className="h-10 w-12 text-seafoam-600 transition-transform duration-500 group-hover:scale-110 group-hover:-rotate-3" />
                         </div>
                         <h1 className="mt-3 text-xl font-black text-slate-900 tracking-tighter uppercase">SiPos</h1>
                     </div>
