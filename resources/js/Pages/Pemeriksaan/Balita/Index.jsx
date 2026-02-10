@@ -13,6 +13,7 @@ export default function Index({ auth, pemeriksaans, balitas = [], filters, antri
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+    const [isSmartGiziModalOpen, setIsSmartGiziInfoOpen] = useState(false);
     const [selectedPemeriksaan, setSelectedPemeriksaan] = useState(null);
     const [deletingId, setDeletingId] = useState(null);
     const [searchQuery, setSearchQuery] = useState(filters.search || '');
@@ -23,7 +24,7 @@ export default function Index({ auth, pemeriksaans, balitas = [], filters, antri
         berat_badan: '', 
         tinggi_badan: '', 
         lingkar_kepala: '',
-        status_gizi: 'Baik', 
+        status_gizi: 'Auto', 
         perkembangan: '', 
         catatan: '',
         imunisasi_bcg: false, 
@@ -277,7 +278,29 @@ export default function Index({ auth, pemeriksaans, balitas = [], filters, antri
                                         </div>
                                         <div className="grid grid-cols-2 gap-3">
                                             <div><InputLabel value="Tanggal Periksa" /><TextInput type="date" className="w-full py-2 text-sm" value={data.tanggal_periksa} onChange={(e) => setData('tanggal_periksa', e.target.value)} required /></div>
-                                            <div><InputLabel value="Status Gizi" /><select className="w-full rounded-xl border-none bg-slate-50 py-2.5 font-bold text-sm" value={data.status_gizi} onChange={(e) => setData('status_gizi', e.target.value)}><option value="Baik">Baik</option><option value="Kurang">Kurang</option><option value="Buruk">Buruk</option><option value="Lebih">Lebih</option></select></div>
+                                            <div>
+                                                <div className="flex items-center gap-2 mb-1">
+                                                    <InputLabel value="Status Gizi" className="!mb-0" />
+                                                    <button 
+                                                        type="button" 
+                                                        onClick={() => setIsSmartGiziInfoOpen(true)}
+                                                        className="text-seafoam-500 hover:text-seafoam-600 transition-colors"
+                                                        title="Apa itu Smart Gizi?"
+                                                    >
+                                                        <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                                                            <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                                <select className="w-full rounded-xl border-none bg-seafoam-50 py-2.5 font-bold text-sm focus:ring-4 focus:ring-seafoam-500/10 transition-all cursor-pointer text-seafoam-700" value={data.status_gizi} onChange={(e) => setData('status_gizi', e.target.value)}>
+                                                    <option value="Auto">✨ Otomatis (Smart Gizi)</option>
+                                                    <option value="Baik">Baik</option>
+                                                    <option value="Kurang">Kurang</option>
+                                                    <option value="Buruk">Buruk</option>
+                                                    <option value="Lebih">Lebih</option>
+                                                </select>
+                                                <p className="text-[8px] text-seafoam-500 font-bold mt-1 uppercase tracking-widest leading-tight">Sistem akan menghitung status berdasarkan standar WHO secara otomatis.</p>
+                                            </div>
                                         </div>
                                         <div className="grid grid-cols-3 gap-3">
                                             <div><InputLabel value="BB (kg)" /><TextInput type="number" step="0.01" className="w-full py-2 text-sm" value={data.berat_badan} onChange={(e) => setData('berat_badan', e.target.value)} required /></div>
@@ -483,6 +506,54 @@ export default function Index({ auth, pemeriksaans, balitas = [], filters, antri
             </Modal>
 
             <Modal show={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} maxWidth="md"><div className="flex flex-col items-center text-center p-12 text-sm"><div className="h-16 w-16 rounded-[2rem] bg-rose-50 text-rose-500 flex items-center justify-center mb-6 ring-[12px] ring-rose-50/50"><DeleteIcon size="48" /></div><h2 className="text-3xl font-black text-slate-900 mb-2 tracking-tight">Hapus Data?</h2><p className="text-slate-500 mb-10 text-sm font-medium">Tindakan ini tidak dapat dibatalkan.</p><div className="flex w-full gap-4"><button onClick={() => setIsDeleteModalOpen(false)} className="flex-1 py-4 bg-slate-100 rounded-2xl font-black text-xs text-slate-600">Batal</button><button onClick={() => destroy(route('pemeriksaan-balita.destroy', deletingId), { onSuccess: () => setIsDeleteModalOpen(false) })} className="flex-1 py-4 bg-rose-600 text-white rounded-2xl font-black text-xs shadow-xl shadow-rose-200 text-xs text-sm">Ya, Hapus</button></div></div></Modal>
+
+            <Modal show={isSmartGiziModalOpen} onClose={() => setIsSmartGiziInfoOpen(false)} maxWidth="md">
+                <div className="p-8">
+                    <div className="flex items-center gap-4 mb-6">
+                        <div className="h-12 w-12 rounded-2xl bg-seafoam-500 flex items-center justify-center text-white text-2xl animate-pulse">
+                            ✨
+                        </div>
+                        <div>
+                            <h2 className="text-xl font-black text-slate-900 tracking-tight">Smart Gizi</h2>
+                            <p className="text-[10px] text-seafoam-600 font-black uppercase tracking-[0.2em]">Kecerdasan Buatan Posyandu</p>
+                        </div>
+                    </div>
+                    
+                    <div className="space-y-4">
+                        <p className="text-sm text-slate-600 leading-relaxed">
+                            <b>Smart Gizi</b> adalah fitur cerdas yang menghitung status gizi balita secara otomatis berdasarkan standar antropometri <b>WHO/Kemenkes 2020</b>.
+                        </p>
+                        
+                        <div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 space-y-3">
+                            <div className="flex items-start gap-3 text-xs">
+                                <span className="text-seafoam-500 font-black mt-0.5">✓</span>
+                                <p className="text-slate-600">Menggunakan perhitungan <b>Z-Score (BB/U)</b>.</p>
+                            </div>
+                            <div className="flex items-start gap-3 text-xs">
+                                <span className="text-seafoam-500 font-black mt-0.5">✓</span>
+                                <p className="text-slate-600">Membandingkan Berat Badan dengan Umur dan Jenis Kelamin secara akurat.</p>
+                            </div>
+                            <div className="flex items-start gap-3 text-xs">
+                                <span className="text-seafoam-500 font-black mt-0.5">✓</span>
+                                <p className="text-slate-600">Membantu kader memberikan diagnosa dini tanpa perlu menghitung manual.</p>
+                            </div>
+                        </div>
+
+                        <p className="text-[11px] text-slate-400 italic">
+                            *Jika Anda tetap ingin mengisi secara manual, cukup ganti opsi dropdown ke pilihan selain "Otomatis".
+                        </p>
+                    </div>
+
+                    <div className="mt-8">
+                        <button 
+                            onClick={() => setIsSmartGiziInfoOpen(false)}
+                            className="w-full py-3.5 bg-slate-900 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-slate-800 transition-all active:scale-95"
+                        >
+                            Saya Mengerti
+                        </button>
+                    </div>
+                </div>
+            </Modal>
         </AuthenticatedLayout>
     );
 }

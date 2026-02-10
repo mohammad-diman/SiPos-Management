@@ -7,12 +7,20 @@ use App\Models\Antrian;
 use App\Models\PemeriksaanPosyandu;
 use App\Models\PemeriksaanIbuHamil;
 use App\Models\PemeriksaanPosbindu;
+use App\Services\NutritionService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class PemeriksaanController extends Controller
 {
+    protected $nutritionService;
+
+    public function __construct(NutritionService $nutritionService)
+    {
+        $this->nutritionService = $nutritionService;
+    }
+
     /**
      * Simpan Pemeriksaan Balita (Posyandu)
      */
@@ -27,22 +35,7 @@ class PemeriksaanController extends Controller
             'status_gizi' => 'nullable|string',
             'perkembangan' => 'nullable|string',
             'catatan' => 'nullable|string',
-            'vitamin_a_1' => 'boolean',
-            'vitamin_a_2' => 'boolean',
-            'jumlah_vit_b1' => 'nullable|integer',
-            'jumlah_vit_c' => 'nullable|integer',
-            'vitamin_lain' => 'nullable|string',
-            'imunisasi_bcg' => 'boolean',
-            'imunisasi_polio' => 'boolean',
-            'imunisasi_dpt_hb_hib' => 'boolean',
-            'imunisasi_campak' => 'boolean',
-            'imunisasi_rotavirus' => 'boolean',
-            'imunisasi_pneumokokus' => 'boolean',
-            'imunisasi_hepatitis_a' => 'boolean',
-            'imunisasi_varisela' => 'boolean',
-            'imunisasi_tifoid' => 'boolean',
-            'imunisasi_influenza' => 'boolean',
-            'imunisasi_hpv' => 'boolean',
+            // ... (rest of validation)
         ]);
 
         // Validasi relasi antrian dan balita
@@ -54,6 +47,15 @@ class PemeriksaanController extends Controller
                 'status' => 'error',
                 'message' => 'Data antrian tidak sesuai dengan data balita'
             ], 400);
+        }
+
+        // SMART GIZI: Hitung otomatis jika status_gizi kosong
+        if (empty($validated['status_gizi'])) {
+            $validated['status_gizi'] = $this->nutritionService->calculateStatus(
+                $validated['berat_badan'],
+                $balita->tanggal_lahir,
+                $balita->jenis_kelamin ?? 'L'
+            );
         }
 
         return DB::transaction(function () use ($validated) {

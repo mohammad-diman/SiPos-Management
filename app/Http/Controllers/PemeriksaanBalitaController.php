@@ -5,12 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Balita;
 use App\Models\PemeriksaanPosyandu;
 use App\Models\Antrian;
+use App\Services\NutritionService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Log;
 
 class PemeriksaanBalitaController extends Controller
 {
+    protected $nutritionService;
+
+    public function __construct(NutritionService $nutritionService)
+    {
+        $this->nutritionService = $nutritionService;
+    }
+
     public function index(Request $request)
     {
         return Inertia::render('Pemeriksaan/Balita/Index', [
@@ -25,7 +33,7 @@ class PemeriksaanBalitaController extends Controller
                 ->latest()
                 ->paginate(10)
                 ->withQueryString(),
-            'balitas' => Balita::select('id', 'nama', 'no_rm', 'nik')->orderBy('no_rm', 'asc')->get(),
+            'balitas' => Balita::select('id', 'nama', 'no_rm', 'nik', 'tanggal_lahir', 'jenis_kelamin')->orderBy('no_rm', 'asc')->get(),
             'filters' => $request->only(['search']),
             'antrian_aktif' => Antrian::where('tanggal', date('Y-m-d'))
                 ->where('kategori', 'balita')
@@ -77,11 +85,21 @@ class PemeriksaanBalitaController extends Controller
             'vitamin_lain' => 'nullable|string',
         ]);
 
+        $balita = Balita::find($validated['balita_id']);
+
+        // SMART GIZI: Hitung otomatis jika status_gizi kosong atau 'Auto'
+        if (empty($validated['status_gizi']) || $validated['status_gizi'] === 'Auto') {
+            $validated['status_gizi'] = $this->nutritionService->calculateStatus(
+                $validated['berat_badan'],
+                $balita->tanggal_lahir,
+                $balita->jenis_kelamin
+            );
+        }
+
         $pemeriksaan = PemeriksaanPosyandu::create($validated);
 
         if ($pemeriksaan) {
             try {
-                $balita = Balita::find($validated['balita_id']);
                 if ($balita) {
                     Antrian::whereHas('penduduk', function($q) use ($balita) {
                         $q->where('nik', $balita->nik);
@@ -126,6 +144,16 @@ class PemeriksaanBalitaController extends Controller
             'jumlah_vit_c' => 'integer|min:0',
             'vitamin_lain' => 'nullable|string',
         ]);
+
+        $balita = Balita::find($validated['balita_id']);
+        
+        if (empty($validated['status_gizi']) || $validated['status_gizi'] === 'Auto') {
+            $validated['status_gizi'] = $this->nutritionService->calculateStatus(
+                $validated['berat_badan'],
+                $balita->tanggal_lahir,
+                $balita->jenis_kelamin
+            );
+        }
 
         $pemeriksaanBalitum->update($validated);
         return redirect()->back()->with('message', 'Data pemeriksaan berhasil diperbarui');
