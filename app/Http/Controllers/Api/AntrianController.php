@@ -325,31 +325,36 @@ class AntrianController extends Controller
     public function riwayatPemeriksaan($penduduk_id)
     {
         $authUser = request()->user();
-        if ($authUser instanceof \App\Models\Penduduk && (int) $penduduk_id !== $authUser->id) {
+        
+        // Jika yang akses adalah Warga, pastikan dia hanya melihat miliknya sendiri
+        if ($authUser instanceof Penduduk && (int) $penduduk_id !== $authUser->id) {
             return response()->json(['message' => 'Tidak diizinkan melihat riwayat penduduk lain'], 403);
         }
+        // Jika Kader, izinkan (Kader biasanya login sebagai User dengan role kader)
 
         $penduduk = Penduduk::findOrFail($penduduk_id);
         $riwayat = [];
 
-        // Cek kategori dan ambil dari tabel yang sesuai
-        if (Balita::where('nik', $penduduk->nik)->exists()) {
-            $balita = Balita::where('nik', $penduduk->nik)->first();
+        // Ambil data riwayat berdasarkan kategori penduduk
+        $balita = Balita::where('nik', $penduduk->nik)->first();
+        $ibu = IbuHamil::where('nik', $penduduk->nik)->first();
+        $lansia = Lansia::where('nik', $penduduk->nik)->first();
+
+        if ($balita) {
             $riwayat = \App\Models\PemeriksaanPosyandu::where('balita_id', $balita->id)
                 ->orderBy('tanggal_periksa', 'desc')->get();
-        } elseif (IbuHamil::where('nik', $penduduk->nik)->exists()) {
-            $ibu = IbuHamil::where('nik', $penduduk->nik)->first();
+        } elseif ($ibu) {
             $riwayat = \App\Models\PemeriksaanIbuHamil::where('ibu_hamil_id', $ibu->id)
                 ->orderBy('tanggal_periksa', 'desc')->get();
-        } elseif (Lansia::where('nik', $penduduk->nik)->exists()) {
-            $lansia = Lansia::where('nik', $penduduk->nik)->first();
+        } elseif ($lansia) {
             $riwayat = \App\Models\PemeriksaanPosbindu::where('lansia_id', $lansia->id)
                 ->orderBy('tanggal_periksa', 'desc')->get();
         }
 
         return response()->json([
             'status' => 'success',
-            'data' => $riwayat
+            'data' => $riwayat,
+            'penduduk' => $penduduk
         ]);
     }
 

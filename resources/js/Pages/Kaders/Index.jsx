@@ -69,26 +69,26 @@ export default function Index({ auth, kaders, available_users, filters }) {
             <Head title="Master Kader" />
 
             <div className="space-y-6">
-                <div className="flex flex-col md:flex-row gap-3 items-center justify-between bg-white p-4 rounded-[2rem] shadow-sm border border-slate-100">
+                <div className="flex flex-col md:flex-row gap-3 items-center justify-between bg-white p-4 rounded-xl shadow-sm border border-slate-100">
                     <div className="flex items-center gap-3 w-full md:w-auto">
                         <div className="relative w-full md:w-80 group">
                             <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400"><SearchIcon /></span>
                             <input 
                                 type="text" 
                                 placeholder="Cari NIK atau Nama..." 
-                                className="w-full rounded-2xl border-none bg-slate-50 py-2.5 pl-11 pr-4 text-xs font-bold text-slate-600 focus:ring-4 focus:ring-seafoam-500/10 transition-all" 
+                                className="w-full rounded-xl border-none bg-slate-50 py-2.5 pl-11 pr-4 text-xs font-bold text-slate-600 focus:ring-4 focus:ring-seafoam-500/10 transition-all" 
                                 value={searchQuery} 
                                 onChange={(e) => setSearchQuery(e.target.value)} 
                             />
                         </div>
-                        <div className="bg-slate-50 px-4 py-2 rounded-2xl border border-slate-100">
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">Total:</span>
-                            <span className="text-xs font-black text-slate-700 ml-2">{kaders.total} Orang</span>
-                        </div>
+                        <PrimaryButton onClick={() => openModal()} className="rounded-full px-6 py-2 bg-seafoam-600 hover:bg-seafoam-700 border-none font-black text-white text-[9px] uppercase tracking-[0.15em] shadow-lg shadow-seafoam-100 shrink-0 flex items-center justify-center">
+                            + Tambah Kader
+                        </PrimaryButton>
                     </div>
-                    <PrimaryButton onClick={() => openModal()} className="rounded-2xl px-8 py-4 bg-seafoam-600 hover:bg-seafoam-700 border-none font-bold text-white text-[10px] uppercase tracking-widest shadow-xl shadow-seafoam-200 shrink-0">
-                        + Tambah Kader
-                    </PrimaryButton>
+                    <div className="bg-slate-50 px-5 py-2 rounded-full border border-slate-100 shrink-0">
+                        <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none">Total:</span>
+                        <span className="text-[12px] font-black text-slate-600 ml-1 leading-none">{kaders.total}</span>
+                    </div>
                 </div>
 
                 <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden text-[12px]">

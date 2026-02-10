@@ -6,8 +6,23 @@ import { useState, useEffect } from 'react';
 export default function AuthenticatedLayout({ header, children }) {
     const { auth, flash } = usePage().props;
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
     const [toast, setToast] = useState({ message: '', type: 'success' });
     const [processing, setProcessing] = useState(false);
+
+    useEffect(() => {
+        // Load preference from localStorage if exists
+        const savedState = localStorage.getItem('sidebar-collapsed');
+        if (savedState !== null) {
+            setIsSidebarCollapsed(savedState === 'true');
+        }
+    }, []);
+
+    const toggleSidebarCollapse = () => {
+        const newState = !isSidebarCollapsed;
+        setIsSidebarCollapsed(newState);
+        localStorage.setItem('sidebar-collapsed', newState);
+    };
 
     useEffect(() => {
         let startEvent = router.on('start', () => setProcessing(true));
@@ -55,19 +70,19 @@ export default function AuthenticatedLayout({ header, children }) {
             {isSidebarOpen && (
                 <div className="fixed inset-0 z-50 flex sm:hidden">
                     <div className="fixed inset-0 bg-seafoam-950/80 backdrop-blur-sm transition-opacity" onClick={() => setIsSidebarOpen(false)}></div>
-                    <div className="relative flex w-56 flex-col transition-transform">
-                        <Sidebar user={auth.user} />
+                    <div className="relative flex w-64 flex-col transition-transform">
+                        <Sidebar user={auth.user} isCollapsed={false} />
                     </div>
                 </div>
             )}
 
             {/* Desktop Sidebar */}
-            <div className="hidden sm:fixed sm:inset-y-0 sm:left-0 sm:z-40 sm:block sm:w-56">
-                <Sidebar user={auth.user} />
+            <div className={`hidden sm:fixed sm:inset-y-0 sm:left-0 sm:z-40 sm:block transition-all duration-500 ease-in-out ${isSidebarCollapsed ? 'sm:w-20' : 'sm:w-60'}`}>
+                <Sidebar user={auth.user} isCollapsed={isSidebarCollapsed} onToggle={toggleSidebarCollapse} />
             </div>
 
             {/* Main Content Area */}
-            <div className="flex-1 flex flex-col sm:ps-56 min-h-screen">
+            <div className={`flex-1 flex flex-col transition-all duration-500 ease-in-out min-h-screen ${isSidebarCollapsed ? 'sm:ps-20' : 'sm:ps-60'}`}>
                 <div className="flex-1 p-1.5 sm:p-2 lg:p-2.5 flex flex-col">
                     {/* The Main Content Card */}
                     <div className="flex-1 bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col">
@@ -77,7 +92,12 @@ export default function AuthenticatedLayout({ header, children }) {
                                 {header && (
                                     <div className="mb-4 flex items-center justify-between border-b border-slate-50 pb-3">
                                         <div className="flex items-center gap-2.5">
-                                            <div className="h-5 w-1 bg-seafoam-500 rounded-full"></div>
+                                            <button 
+                                                onClick={toggleSidebarCollapse}
+                                                className="h-5 w-1.5 bg-seafoam-500 rounded-full hover:bg-seafoam-600 hover:scale-x-125 transition-all duration-300 hidden sm:block"
+                                                title={isSidebarCollapsed ? "Buka Sidebar" : "Tutup Sidebar"}
+                                            ></button>
+                                            <div className="h-5 w-1 bg-seafoam-500 rounded-full sm:hidden"></div>
                                             <h2 className="text-base font-black text-slate-900 tracking-tight uppercase"> {/* Title slightly smaller */}
                                                 {header}
                                             </h2>

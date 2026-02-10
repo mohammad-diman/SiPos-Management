@@ -67,28 +67,28 @@ export default function Index({ auth, users, filters }) {
             <Head title="Manajemen Petugas" />
 
             <div className="space-y-6">
-                <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-white p-6 rounded-[2rem] shadow-sm border border-slate-100">
+                <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-white p-4 rounded-xl shadow-sm border border-slate-100">
                     <div className="flex items-center gap-4 w-full md:w-auto">
                         <div className="relative w-full md:w-80 group">
                             <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400"><SearchIcon /></span>
                             <input 
                                 type="text" 
                                 placeholder="Cari nama atau email..." 
-                                className="w-full rounded-2xl border-none bg-slate-50 py-3.5 pl-11 pr-4 text-xs font-bold text-slate-600 focus:ring-4 focus:ring-indigo-500/10 transition-all" 
+                                className="w-full rounded-xl border-none bg-slate-50 py-2.5 pl-11 pr-4 text-xs font-bold text-slate-600 focus:ring-4 focus:ring-indigo-500/10 transition-all" 
                                 value={searchQuery} 
                                 onChange={(e) => setSearchQuery(e.target.value)} 
                             />
                         </div>
-                        <div className="bg-slate-50 px-4 py-2 rounded-2xl border border-slate-100">
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">Total:</span>
-                            <span className="text-xs font-black text-slate-700 ml-2">{users.total} Akun</span>
-                        </div>
+                        {auth.user.role === 'admin' && (
+                            <PrimaryButton onClick={() => openModal()} className="rounded-full px-6 py-2 bg-indigo-600 hover:bg-indigo-700 border-none font-black text-white text-[9px] uppercase tracking-[0.15em] shadow-lg shadow-indigo-100 shrink-0 flex items-center justify-center">
+                                + Tambah Petugas
+                            </PrimaryButton>
+                        )}
                     </div>
-                    {auth.user.role === 'admin' && (
-                        <PrimaryButton onClick={() => openModal()} className="rounded-2xl px-8 py-4 bg-indigo-600 hover:bg-indigo-700 border-none font-bold text-white text-[10px] uppercase tracking-widest shadow-xl shadow-indigo-200 shrink-0">
-                            + Tambah Petugas
-                        </PrimaryButton>
-                    )}
+                    <div className="bg-slate-50 px-5 py-2 rounded-full border border-slate-100 shrink-0">
+                        <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none">Total:</span>
+                        <span className="text-[12px] font-black text-slate-600 ml-1 leading-none">{users.total}</span>
+                    </div>
                 </div>
 
                 <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden text-[12px]">

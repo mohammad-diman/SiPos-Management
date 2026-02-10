@@ -45,7 +45,7 @@ class DummyDataSeeder extends Seeder
             $balita = Balita::create([
                 'no_rm' => "RM-B-" . str_pad($i, 4, '0', STR_PAD_LEFT),
                 'nama' => $nama,
-                'nik' => '750' . rand(10000000000, 99999999999),
+                'nik' => '750' . rand(1000000000000, 9999999999999), // 16 digit
                 'tanggal_lahir' => now()->subDays(rand(100, 1500))->format('Y-m-d'),
                 'jenis_kelamin' => $gender,
                 'alamat' => $desa . ", RT 0" . rand(1, 5) . "/RW 0" . rand(1, 2),
@@ -58,7 +58,6 @@ class DummyDataSeeder extends Seeder
                 'riwayat_penyakit' => rand(0, 1) ? 'Tidak ada' : 'Demam',
             ]);
 
-            // Tambahkan 3-5 pemeriksaan untuk setiap balita
             for ($j = 0; $j < rand(3, 5); $j++) {
                 PemeriksaanPosyandu::create([
                     'balita_id' => $balita->id,
@@ -81,7 +80,7 @@ class DummyDataSeeder extends Seeder
             $ibu = IbuHamil::create([
                 'no_rm' => "RM-IH-" . str_pad($i, 4, '0', STR_PAD_LEFT),
                 'nama' => $nama,
-                'nik' => '750' . rand(10000000000, 99999999999),
+                'nik' => '750' . rand(1000000000000, 9999999999999), // 16 digit
                 'tanggal_lahir' => now()->subYears(rand(20, 35))->format('Y-m-d'),
                 'nama_suami' => $this->indonesianName('male'),
                 'alamat' => $desa . ", RT 0" . rand(1, 5) . "/RW 0" . rand(1, 2),
@@ -92,7 +91,6 @@ class DummyDataSeeder extends Seeder
                 'riwayat_penyakit' => 'Tidak ada',
             ]);
 
-            // Tambahkan 2-4 pemeriksaan untuk setiap ibu hamil
             for ($j = 0; $j < rand(2, 4); $j++) {
                 PemeriksaanIbuHamil::create([
                     'ibu_hamil_id' => $ibu->id,
@@ -120,7 +118,7 @@ class DummyDataSeeder extends Seeder
             $lansia = Lansia::create([
                 'no_rm' => "RM-L-" . str_pad($i, 4, '0', STR_PAD_LEFT),
                 'nama' => $nama,
-                'nik' => '750' . rand(10000000000, 99999999999),
+                'nik' => '750' . rand(1000000000000, 9999999999999), // 16 digit
                 'tanggal_lahir' => now()->subYears(rand(60, 85))->format('Y-m-d'),
                 'jenis_kelamin' => $gender,
                 'alamat' => $desa . ", RT 0" . rand(1, 5) . "/RW 0" . rand(1, 2),
@@ -129,10 +127,9 @@ class DummyDataSeeder extends Seeder
                 'riwayat_penyakit' => rand(0, 1) ? 'Hipertensi' : 'Tidak ada',
             ]);
 
-            // Tambahkan 1-3 pemeriksaan untuk setiap lansia
             for ($j = 0; $j < rand(1, 3); $j++) {
                 $bb = rand(45, 80);
-                $tb = rand(150, 175) / 100; // in meters
+                $tb = rand(150, 175) / 100;
                 $imt = $bb / ($tb * $tb);
                 
                 PemeriksaanPosbindu::create([
@@ -156,9 +153,7 @@ class DummyDataSeeder extends Seeder
             }
         }
 
-        // 4. Sinkronisasi ke tabel Penduduk
         $this->syncToPenduduk();
-        
         Jadwal::factory(5)->create();
     }
 

@@ -63,16 +63,18 @@ export default function Index({ auth, jadwals = [] }) {
             <Head title="Jadwal Pelayanan" />
 
             <div className="space-y-6">
-                <div className="flex flex-col md:flex-row gap-3 items-center justify-between bg-white p-4 rounded-[2rem] shadow-sm border border-slate-100">
+                <div className="flex flex-col md:flex-row gap-3 items-center justify-between bg-white p-4 rounded-xl shadow-sm border border-slate-100">
                     <div className="flex items-center gap-3">
-                        <div className="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-2xl">
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Baris:</span>
-                            <select value={rowsPerPage} onChange={(e) => { setRowsPerPage(Number(e.target.value)); setCurrentPage(1); }} className="bg-transparent border-none text-xs font-black text-slate-600 focus:ring-0 p-0 pr-8">
+                        <div className="flex items-center gap-2 bg-slate-50 px-5 py-2 rounded-full border border-slate-100">
+                            <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none">Baris:</span>
+                            <select value={rowsPerPage} onChange={(e) => { setRowsPerPage(Number(e.target.value)); setCurrentPage(1); }} className="bg-transparent border-none text-[11px] font-black text-slate-600 focus:ring-0 p-0 pr-8 leading-none">
                                 {[5, 10, 25, 50, 100].map(v => <option key={v} value={v}>{v}</option>)}
                             </select>
                         </div>
                     </div>
-                    <PrimaryButton onClick={() => openModal()} className="rounded-2xl px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 border-none font-bold text-white text-[10px] uppercase tracking-widest shrink-0">+ Tambah Jadwal</PrimaryButton>
+                    <PrimaryButton onClick={() => openModal()} className="rounded-full px-6 py-2 bg-indigo-600 hover:bg-indigo-700 border-none font-black text-white text-[9px] uppercase tracking-[0.15em] shadow-lg shadow-indigo-100 shrink-0">
+                        + Tambah Jadwal
+                    </PrimaryButton>
                 </div>
 
                 <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden text-[12px]">

@@ -68,37 +68,37 @@ export default function Index({ auth, lansias, filters }) {
             <Head title="Data Lansia" />
 
             <div className="space-y-6">
-                <div className="flex flex-col md:flex-row gap-3 items-center justify-between bg-white p-4 rounded-[2rem] shadow-sm border border-slate-100">
+                <div className="flex flex-col md:flex-row gap-3 items-center justify-between bg-white p-4 rounded-xl shadow-sm border border-slate-100">
                     <div className="flex items-center gap-3 w-full md:w-auto">
                         <div className="relative w-full md:w-80 group">
                             <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400"><SearchIcon /></span>
                                                         <input 
                                                             type="text" 
                                                             placeholder="Cari No. RM atau Nama..." 
-                                                            className="w-full rounded-2xl border-none bg-slate-50 py-3 pl-11 pr-4 text-xs font-bold text-slate-600 focus:ring-4 focus:ring-seafoam-500/10 transition-all" 
+                                                            className="w-full rounded-xl border-none bg-slate-50 py-3 pl-11 pr-4 text-xs font-bold text-slate-600 focus:ring-4 focus:ring-seafoam-500/10 transition-all" 
                                                             value={searchQuery} 
                                                             onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }} 
                                                         />
                         </div>
-                        <div className="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-2xl">
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Total:</span>
-                            <span className="text-xs font-black text-slate-600">{lansias.total} Data</span>
+                        <div className="flex gap-2 w-full md:w-auto">
+                            <a 
+                                href={route('export.excel', 'lansia')} 
+                                className="flex-1 md:flex-none rounded-xl px-6 py-2.5 bg-white border border-seafoam-200 text-seafoam-600 hover:bg-seafoam-50 font-bold text-[10px] uppercase tracking-widest shadow-sm transition-all text-center"
+                            >
+                                Excel
+                            </a>
+                            <a 
+                                href={route('export.pdf', 'lansia')} 
+                                className="flex-1 md:flex-none rounded-xl px-6 py-2.5 bg-white border border-rose-200 text-rose-600 hover:bg-rose-50 font-bold text-[10px] uppercase tracking-widest shadow-sm transition-all text-center"
+                            >
+                                PDF
+                            </a>
+                            <PrimaryButton onClick={() => openModal()} className="flex-[2] md:flex-none rounded-xl px-6 py-2.5 bg-amber-500 hover:bg-amber-600 border-none font-bold text-white text-[10px] uppercase tracking-widest shrink-0">+ Tambah</PrimaryButton>
                         </div>
                     </div>
-                    <div className="flex gap-2 w-full md:w-auto">
-                        <a 
-                            href={route('export.excel', 'lansia')} 
-                            className="flex-1 md:flex-none rounded-2xl px-6 py-2.5 bg-white border border-seafoam-200 text-seafoam-600 hover:bg-seafoam-50 font-bold text-[10px] uppercase tracking-widest shadow-sm transition-all text-center"
-                        >
-                            Excel
-                        </a>
-                        <a 
-                            href={route('export.pdf', 'lansia')} 
-                            className="flex-1 md:flex-none rounded-2xl px-6 py-2.5 bg-white border border-rose-200 text-rose-600 hover:bg-rose-50 font-bold text-[10px] uppercase tracking-widest shadow-sm transition-all text-center"
-                        >
-                            PDF
-                        </a>
-                        <PrimaryButton onClick={() => openModal()} className="flex-[2] md:flex-none rounded-2xl px-6 py-2.5 bg-amber-500 hover:bg-amber-600 border-none font-bold text-white text-[10px] uppercase tracking-widest shrink-0">+ Tambah</PrimaryButton>
+                    <div className="flex items-center gap-2 bg-slate-50 px-5 py-2 rounded-full border border-slate-100 shrink-0">
+                        <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none">Total Data:</span>
+                        <span className="text-[12px] font-black text-slate-600 ml-1 leading-none">{lansias.total}</span>
                     </div>
                 </div>
 

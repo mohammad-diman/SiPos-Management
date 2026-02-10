@@ -13,13 +13,18 @@ class PendudukController extends Controller
         return Inertia::render('Penduduk/Index', [
             'penduduks' => Penduduk::query()
                 ->when($request->search, function ($query, $search) {
-                    $query->where('nama', 'like', "%{$search}%")
-                        ->orWhere('nik', 'like', "%{$search}%");
+                    $query->where(function($q) use ($search) {
+                        $q->where('nama', 'like', "%{$search}%")
+                          ->orWhere('nik', 'like', "%{$search}%");
+                    });
+                })
+                ->when($request->desa, function ($query, $desa) {
+                    $query->where('alamat', 'like', "%{$desa}%");
                 })
                 ->latest()
                 ->paginate(10)
                 ->withQueryString(),
-            'filters' => $request->only(['search'])
+            'filters' => $request->only(['search', 'desa'])
         ]);
     }
 

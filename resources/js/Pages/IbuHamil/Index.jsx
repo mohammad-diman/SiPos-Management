@@ -71,36 +71,36 @@ export default function Index({ auth, ibu_hamils, filters }) {
             <Head title="Master Ibu Hamil" />
 
             <div className="space-y-6">
-                <div className="flex flex-col md:flex-row gap-3 items-center justify-between bg-white p-4 rounded-[2rem] shadow-sm border border-slate-100">
+                <div className="flex flex-col md:flex-row gap-3 items-center justify-between bg-white p-4 rounded-xl shadow-sm border border-slate-100">
                     <div className="flex items-center gap-3 w-full md:w-auto">
                         <div className="relative w-full md:w-80 group">
                             <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400"><SearchIcon /></span>
-                            <input type="text" placeholder="Cari No. RM atau Nama..." className="w-full rounded-2xl border-none bg-slate-50 py-3 pl-11 pr-4 text-xs font-bold text-slate-600 focus:ring-4 focus:ring-emerald-500/10 transition-all" value={searchQuery} onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }} />
+                            <input type="text" placeholder="Cari No. RM atau Nama..." className="w-full rounded-xl border-none bg-slate-50 py-3 pl-11 pr-4 text-xs font-bold text-slate-600 focus:ring-4 focus:ring-emerald-500/10 transition-all" value={searchQuery} onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }} />
                         </div>
-                        <div className="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-2xl">
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Total:</span>
-                            <span className="text-xs font-black text-slate-600">{ibu_hamils.total} Data</span>
+                        <div className="flex gap-2 w-full md:w-auto">
+                            <a 
+                                href={route('export.excel', 'ibu-hamil')} 
+                                className="flex-1 md:flex-none rounded-full px-5 py-2 bg-white border-2 border-seafoam-100 text-seafoam-600 hover:bg-seafoam-50 hover:border-seafoam-200 font-black text-[9px] uppercase tracking-[0.15em] shadow-sm transition-all text-center flex items-center justify-center"
+                            >
+                                Excel
+                            </a>
+                            <a 
+                                href={route('export.pdf', 'ibu-hamil')} 
+                                className="flex-1 md:flex-none rounded-full px-5 py-2 bg-white border-2 border-rose-100 text-rose-600 hover:bg-rose-50 hover:border-rose-200 font-black text-[9px] uppercase tracking-[0.15em] shadow-sm transition-all text-center flex items-center justify-center"
+                            >
+                                PDF
+                            </a>
+                            <PrimaryButton onClick={() => openModal()} className="flex-[2] md:flex-none rounded-full px-6 py-2 bg-rose-500 hover:bg-rose-600 border-none font-black text-white text-[9px] uppercase tracking-[0.15em] shadow-lg shadow-rose-100 shrink-0 flex items-center justify-center">+ Tambah</PrimaryButton>
                         </div>
                     </div>
-                    <div className="flex gap-2 w-full md:w-auto">
-                        <a 
-                            href={route('export.excel', 'ibu-hamil')} 
-                            className="flex-1 md:flex-none rounded-2xl px-6 py-2.5 bg-white border border-seafoam-200 text-seafoam-600 hover:bg-seafoam-50 font-bold text-[10px] uppercase tracking-widest shadow-sm transition-all text-center"
-                        >
-                            Excel
-                        </a>
-                        <a 
-                            href={route('export.pdf', 'ibu-hamil')} 
-                            className="flex-1 md:flex-none rounded-2xl px-6 py-2.5 bg-white border border-rose-200 text-rose-600 hover:bg-rose-50 font-bold text-[10px] uppercase tracking-widest shadow-sm transition-all text-center"
-                        >
-                            PDF
-                        </a>
-                        <PrimaryButton onClick={() => openModal()} className="flex-[2] md:flex-none rounded-2xl px-6 py-2.5 bg-rose-500 hover:bg-rose-600 border-none font-bold text-white text-[10px] uppercase tracking-widest shrink-0">+ Tambah</PrimaryButton>
+                    <div className="flex items-center gap-2 bg-slate-50 px-5 py-2 rounded-full border border-slate-100 shrink-0">
+                        <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none">Total Data:</span>
+                        <span className="text-[12px] font-black text-slate-600 ml-1 leading-none">{ibu_hamils.total}</span>
                     </div>
                 </div>
 
                 <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden text-[12px]">
-                    <div className="overflow-x-auto">
+                    <div className="overflow-x-auto text-[12px]">
                         <table className="w-full text-left border-collapse">
                             <thead>
                                 <tr className="bg-slate-50/50 border-b border-slate-100 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">

@@ -167,20 +167,20 @@ export default function Index({ auth, pemeriksaans, lansias = [], filters, antri
                     </div>
                 )}
 
-                <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-white p-6 rounded-3xl shadow-sm border border-slate-100">
-                    <div className="flex items-center gap-4 w-full md:w-auto">
-                        <div className="relative w-full md:w-80 group">
+                <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-white p-4 rounded-xl shadow-sm border border-slate-100">
+                    <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
+                        <div className="relative w-full sm:w-72 group">
                             <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400"><SearchIcon /></span>
-                            <input type="text" placeholder="Cari Nama Lansia..." className="w-full rounded-2xl border-none bg-slate-50 py-3.5 pl-11 pr-4 text-xs font-bold text-slate-600 focus:ring-4 focus:ring-seafoam-500/10 transition-all" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+                            <input type="text" placeholder="Cari Nama Lansia..." className="w-full rounded-xl border-none bg-slate-50 py-2.5 pl-11 pr-4 text-xs font-bold text-slate-600 focus:ring-4 focus:ring-seafoam-500/10 transition-all" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
                         </div>
-                        <div className="flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-2xl border border-slate-100">
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Total:</span>
-                            <span className="text-xs font-black text-slate-700 ml-2">{pemeriksaans.total} Data</span>
-                        </div>
+                        <PrimaryButton onClick={() => openModal()} className="w-full sm:w-auto rounded-xl px-5 py-2.5 bg-amber-500 hover:bg-amber-600 border-none font-bold text-white text-[10px] uppercase tracking-widest shrink-0 shadow-lg shadow-amber-100">
+                            + Catat
+                        </PrimaryButton>
                     </div>
-                    <PrimaryButton onClick={() => openModal()} className="rounded-2xl px-6 py-3.5 bg-amber-500 hover:bg-amber-600 border-none font-bold text-white text-[10px] uppercase tracking-widest shrink-0">
-                        + Catat Pemeriksaan
-                    </PrimaryButton>
+                    <div className="flex items-center gap-2 bg-slate-50 px-5 py-2 rounded-full border border-slate-100 shrink-0">
+                        <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none">Total Data:</span>
+                        <span className="text-[12px] font-black text-slate-600 ml-1 leading-none">{pemeriksaans.total}</span>
+                    </div>
                 </div>
 
                 <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
