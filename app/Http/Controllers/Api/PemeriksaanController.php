@@ -59,12 +59,17 @@ class PemeriksaanController extends Controller
         }
 
         return DB::transaction(function () use ($validated) {
-            $pemeriksaan = PemeriksaanPosyandu::create(array_merge($validated, [
+            // Pisahkan antrian_id dari data pemeriksaan karena kolom tidak ada di tabel pemeriksaan
+            $antrianId = $validated['antrian_id'];
+            $dataPemeriksaan = $validated;
+            unset($dataPemeriksaan['antrian_id']);
+
+            $pemeriksaan = PemeriksaanPosyandu::create(array_merge($dataPemeriksaan, [
                 'tanggal_periksa' => Carbon::today()->toDateString(),
             ]));
 
             // Update status antrian menjadi selesai
-            Antrian::where('id', $validated['antrian_id'])->update(['status' => 'selesai']);
+            Antrian::where('id', $antrianId)->update(['status' => 'selesai']);
 
             return response()->json([
                 'status' => 'success',
@@ -106,11 +111,15 @@ class PemeriksaanController extends Controller
         }
 
         return DB::transaction(function () use ($validated) {
-            $pemeriksaan = PemeriksaanIbuHamil::create(array_merge($validated, [
+            $antrianId = $validated['antrian_id'];
+            $dataPemeriksaan = $validated;
+            unset($dataPemeriksaan['antrian_id']);
+
+            $pemeriksaan = PemeriksaanIbuHamil::create(array_merge($dataPemeriksaan, [
                 'tanggal_periksa' => Carbon::today()->toDateString(),
             ]));
 
-            Antrian::where('id', $validated['antrian_id'])->update(['status' => 'selesai']);
+            Antrian::where('id', $antrianId)->update(['status' => 'selesai']);
 
             return response()->json([
                 'status' => 'success',
@@ -164,11 +173,15 @@ class PemeriksaanController extends Controller
         }
 
         return DB::transaction(function () use ($validated) {
-            $pemeriksaan = PemeriksaanPosbindu::create(array_merge($validated, [
+            $antrianId = $validated['antrian_id'];
+            $dataPemeriksaan = $validated;
+            unset($dataPemeriksaan['antrian_id']);
+
+            $pemeriksaan = PemeriksaanPosbindu::create(array_merge($dataPemeriksaan, [
                 'tanggal_periksa' => Carbon::today()->toDateString(),
             ]));
 
-            Antrian::where('id', $validated['antrian_id'])->update(['status' => 'selesai']);
+            Antrian::where('id', $antrianId)->update(['status' => 'selesai']);
 
             return response()->json([
                 'status' => 'success',

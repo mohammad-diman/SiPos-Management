@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Jadwal;
+use App\Models\Desa;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -11,7 +12,8 @@ class JadwalController extends Controller
     public function index()
     {
         return Inertia::render('Jadwal/Index', [
-            'jadwals' => Jadwal::orderBy('tanggal', 'asc')->get()
+            'jadwals' => Jadwal::orderBy('tanggal', 'asc')->get(),
+            'desas' => Desa::orderBy('nama_desa', 'asc')->get()
         ]);
     }
 
@@ -23,6 +25,7 @@ class JadwalController extends Controller
             'waktu_mulai' => 'required',
             'waktu_selesai' => 'required',
             'lokasi' => 'required|string|max:255',
+            'desa' => 'nullable|string|max:255',
             'keterangan' => 'nullable|string',
         ]);
 
@@ -39,6 +42,7 @@ class JadwalController extends Controller
             'waktu_mulai' => 'required',
             'waktu_selesai' => 'required',
             'lokasi' => 'required|string|max:255',
+            'desa' => 'nullable|string|max:255',
             'keterangan' => 'nullable|string',
         ]);
 

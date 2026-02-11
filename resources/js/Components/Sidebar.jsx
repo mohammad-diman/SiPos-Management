@@ -23,6 +23,9 @@ export default function Sidebar({ user, isCollapsed = false, onToggle }) {
         if (route().current('pemeriksaan-lansia.*') || route().current('lansia.index')) {
             menusToOpen.push('posbindu');
         }
+        if (route().current('desa.*') || route().current('penduduk.*') || route().current('kader.*')) {
+            menusToOpen.push('master');
+        }
 
         // Hanya update jika belum ada menu yang dibuka secara manual
         setOpenMenus(prev => prev.length > 0 ? prev : menusToOpen);
@@ -146,16 +149,20 @@ export default function Sidebar({ user, isCollapsed = false, onToggle }) {
                 <NavLink href={route('jadwal.index')} active={route().current('jadwal.*')} icon={CalendarIcon}>Jadwal Pelayanan</NavLink>
 
                 <div className={`transition-all duration-500 pt-4 pb-2 ${isCollapsed ? 'px-0 flex justify-center' : 'px-4'}`}>
-                    {isCollapsed ? <div className="h-px w-8 bg-white/10" /> : <p className="text-[10px] font-black text-seafoam-500/50 uppercase tracking-[0.2em]">Data Master</p>}
+                    {isCollapsed ? <div className="h-px w-8 bg-white/10" /> : <p className="text-[10px] font-black text-seafoam-500/50 uppercase tracking-[0.2em]">Master</p>}
                 </div>
-                <NavLink href={route('penduduk.index')} active={route().current('penduduk.*')} icon={UsersIcon}>Penduduk</NavLink>
-                <NavLink href={route('kader.index')} active={route().current('kader.*')} icon={UserIcon}>Kader</NavLink>
+                
+                <DropdownMenu title="Data Master" id="master" icon={UsersIcon}>
+                    <NavLink isSubmenu href={route('desa.index')} active={route().current('desa.*')}>Desa</NavLink>
+                    <NavLink isSubmenu href={route('penduduk.index')} active={route().current('penduduk.*')}>Penduduk</NavLink>
+                </DropdownMenu>
 
                 {user.role === 'admin' && (
                     <>
                         <div className={`transition-all duration-500 pt-4 pb-2 ${isCollapsed ? 'px-0 flex justify-center' : 'px-4'}`}>
                             {isCollapsed ? <div className="h-px w-8 bg-white/10" /> : <p className="text-[10px] font-black text-seafoam-500/50 uppercase tracking-[0.2em]">Sistem</p>}
                         </div>
+                        <NavLink href={route('kader.index')} active={route().current('kader.*')} icon={UserIcon}>Kader</NavLink>
                         <NavLink href={route('users.index')} active={route().current('users.*')} icon={SettingsIcon}>Manajemen Akun</NavLink>
                     </>
                 )}
@@ -230,7 +237,9 @@ const ElderlyIcon = ({ size = 18, ...props }) => (
 
 const UsersIcon = ({ size = 18, ...props }) => (
     <div className="flex items-center justify-center" style={{ width: size, height: size }}>
-        <FontAwesomeIcon icon={faUsers} style={{ width: '100%', height: '100%' }} />
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="-5.0 -10.0 110.0 135.0" fill="currentColor">
+            <path d="m90.086 37.758v-6.9922c0-3.7539-3.043-6.8008-6.8008-6.8008h-24.578c-1.6484 0-3.1836-0.85156-4.0586-2.25l-3.4844-5.5742c-0.96875-1.5469-2.6641-2.4883-4.4883-2.4883h-31.469c-2.9219 0-5.293 2.3711-5.293 5.293v18.812c-3.0039 0.78516-5.1562 3.6133-4.8906 6.8633l3.0195 37.305c0.20312 2.4961 2.2891 4.4219 4.793 4.4219h74.328c2.5039 0 4.5898-1.9219 4.793-4.4219l3.0195-37.305c0.26172-3.25-1.8867-6.082-4.8906-6.8633zm-74.18-6.2539h68.184c0.41016 0 0.74219 0.33203 0.74219 0.74219v5.2773h-69.664v-5.2773c0-0.41016 0.33203-0.74219 0.74219-0.74219z"/>
+        </svg>
     </div>
 );
 

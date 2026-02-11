@@ -14,6 +14,7 @@ class Jadwal extends Model
         'waktu_mulai',
         'waktu_selesai',
         'lokasi',
+        'desa',
         'keterangan',
     ];
 
@@ -23,7 +24,8 @@ class Jadwal extends Model
 
         static::created(function ($jadwal) {
             $title = 'Jadwal Pelayanan Baru';
-            $message = "{$jadwal->nama_kegiatan} pada tanggal " . \Carbon\Carbon::parse($jadwal->tanggal)->format('d M Y');
+            $locationInfo = $jadwal->lokasi . ($jadwal->desa ? " ({$jadwal->desa})" : "");
+            $message = "{$jadwal->nama_kegiatan} di {$locationInfo} pada tanggal " . \Carbon\Carbon::parse($jadwal->tanggal)->format('d M Y');
 
             // 1. Simpan ke database (Public notification)
             \App\Models\Notification::create([

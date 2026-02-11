@@ -53,6 +53,7 @@ Route::middleware('auth')->group(function () {
 
     // Data Master & Pemeriksaan (Admin & Kader)
     Route::middleware('role:admin,kader')->group(function () {
+        Route::resource('desa', \App\Http\Controllers\DesaController::class);
         Route::resource('kader', KaderController::class);
         Route::resource('penduduk', PendudukController::class);
         Route::resource('balita', BalitaController::class);

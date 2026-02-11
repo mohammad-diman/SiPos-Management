@@ -7,7 +7,7 @@ import InputLabel from '@/Components/InputLabel';
 import Modal from '@/Components/Modal';
 import { useState, useMemo } from 'react';
 
-export default function Index({ auth, jadwals = [] }) {
+export default function Index({ auth, jadwals = [], desas = [] }) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [selectedJadwal, setSelectedJadwal] = useState(null);
@@ -21,6 +21,7 @@ export default function Index({ auth, jadwals = [] }) {
         waktu_mulai: '',
         waktu_selesai: '',
         lokasi: '',
+        desa: '',
         keterangan: '',
     });
 
@@ -33,6 +34,7 @@ export default function Index({ auth, jadwals = [] }) {
                 waktu_mulai: jadwal.waktu_mulai,
                 waktu_selesai: jadwal.waktu_selesai,
                 lokasi: jadwal.lokasi,
+                desa: jadwal.desa || '',
                 keterangan: jadwal.keterangan || '',
             });
         } else {
@@ -93,7 +95,13 @@ export default function Index({ auth, jadwals = [] }) {
                                     <tr key={j.id} className="hover:bg-slate-50/30 transition-colors group">
                                         <td className="px-6 py-3 whitespace-nowrap"><p className="text-[12px] font-extrabold text-slate-900">{j.nama_kegiatan}</p></td>
                                         <td className="px-6 py-3 whitespace-nowrap text-[11px] font-bold text-slate-500">{j.tanggal} <span className="mx-2 text-slate-300">|</span> {j.waktu_mulai} - {j.waktu_selesai}</td>
-                                        <td className="px-6 py-3 whitespace-nowrap text-[11px] font-bold text-slate-500 uppercase tracking-wider">{j.lokasi}</td>
+                                        <td className="px-6 py-3 whitespace-nowrap text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+                                            {j.lokasi} {j.desa && (
+                                                <span className="text-slate-400 font-medium block mt-0.5">
+                                                    ({j.desa.split(', ').length === desas.length ? 'Semua Desa' : j.desa})
+                                                </span>
+                                            )}
+                                        </td>
                                         <td className="px-6 py-3 whitespace-nowrap text-right">
                                             <div className="flex justify-end gap-1.5 text-slate-400">
                                                 <button onClick={() => openModal(j)} className="p-1.5 hover:text-indigo-600 transition-colors"><EditIcon /></button>
@@ -123,9 +131,10 @@ export default function Index({ auth, jadwals = [] }) {
                     <div className="flex-1 overflow-y-auto p-8 custom-scrollbar"><div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-4">
                         <div className="md:col-span-2 space-y-3">
                             <InputLabel value="Jenis Layanan (Bisa pilih lebih dari satu)" />
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                                 {[
-                                    'Posyandu Balita & Ibu Hamil',
+                                    'Posyandu Balita',
+                                    'Pemeriksaan Ibu Hamil',
                                     'Posbindu Lansia'
                                 ].map((service) => (
                                     <label 
@@ -147,10 +156,13 @@ export default function Index({ auth, jadwals = [] }) {
                                                 } else {
                                                     current = current.filter(v => v !== service);
                                                 }
-                                                setData('nama_kegiatan', current.join(', '));
+                                                // Sort to maintain consistent order
+                                                const order = ['Posyandu Balita', 'Pemeriksaan Ibu Hamil', 'Posbindu Lansia'];
+                                                const sorted = order.filter(item => current.includes(item));
+                                                setData('nama_kegiatan', sorted.join(', '));
                                             }}
                                         />
-                                        <span className={`text-xs font-black uppercase tracking-tight ${data.nama_kegiatan.includes(service) ? 'text-indigo-700' : 'text-slate-600'}`}>
+                                        <span className={`text-[10px] font-black uppercase tracking-tight ${data.nama_kegiatan.includes(service) ? 'text-indigo-700' : 'text-slate-600'}`}>
                                             {service}
                                         </span>
                                     </label>
@@ -160,6 +172,56 @@ export default function Index({ auth, jadwals = [] }) {
                         </div>
                         <div><InputLabel value="Tanggal" /><TextInput type="date" className="w-full rounded-2xl border-none bg-slate-50 py-4 text-sm font-bold focus:bg-white focus:ring-4 focus:ring-indigo-500/10 transition-all" value={data.tanggal} onChange={(e) => setData('tanggal', e.target.value)} required /></div>
                         <div><InputLabel value="Lokasi" /><TextInput className="w-full rounded-2xl border-none bg-slate-50 py-4 text-sm font-bold focus:bg-white focus:ring-4 focus:ring-indigo-500/10 transition-all" value={data.lokasi} onChange={(e) => setData('lokasi', e.target.value)} required /></div>
+                        <div className="md:col-span-2 space-y-3">
+                            <div className="flex items-center justify-between">
+                                <InputLabel value="Cakupan Desa (Bisa pilih lebih dari satu)" />
+                                <button 
+                                    type="button" 
+                                    onClick={() => {
+                                        const allNames = desas.map(d => d.nama_desa).join(', ');
+                                        setData('desa', data.desa === allNames ? '' : allNames);
+                                    }}
+                                    className="text-[10px] font-black text-indigo-600 uppercase tracking-widest hover:text-indigo-700 transition-colors"
+                                >
+                                    {data.desa === desas.map(d => d.nama_desa).join(', ') ? 'Batalkan Semua' : 'Pilih Semua Desa'}
+                                </button>
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                {desas.map((desa) => (
+                                    <label 
+                                        key={desa.id} 
+                                        className={`flex items-center gap-3 p-3 rounded-2xl border transition-all cursor-pointer ${
+                                            data.desa.split(', ').includes(desa.nama_desa) 
+                                            ? 'bg-emerald-50 border-emerald-200 shadow-sm' 
+                                            : 'bg-slate-50 border-transparent hover:bg-slate-100'
+                                        }`}
+                                    >
+                                        <input 
+                                            type="checkbox" 
+                                            className="rounded-lg border-slate-300 text-emerald-600 focus:ring-emerald-500 w-4 h-4"
+                                            checked={data.desa.split(', ').includes(desa.nama_desa)}
+                                            onChange={(e) => {
+                                                let current = data.desa ? data.desa.split(', ').filter(v => v) : [];
+                                                if (e.target.checked) {
+                                                    current.push(desa.nama_desa);
+                                                } else {
+                                                    current = current.filter(v => v !== desa.nama_desa);
+                                                }
+                                                // Urutkan agar rapi sesuai urutan master desa
+                                                const sorted = desas
+                                                    .filter(d => current.includes(d.nama_desa))
+                                                    .map(d => d.nama_desa);
+                                                setData('desa', sorted.join(', '));
+                                            }}
+                                        />
+                                        <span className={`text-[11px] font-bold uppercase tracking-tight ${data.desa.split(', ').includes(desa.nama_desa) ? 'text-emerald-700' : 'text-slate-600'}`}>
+                                            {desa.nama_desa}
+                                        </span>
+                                    </label>
+                                ))}
+                            </div>
+                            {errors.desa && <div className="text-rose-500 text-[10px] font-bold mt-1 uppercase tracking-widest">{errors.desa}</div>}
+                        </div>
                         <div><InputLabel value="Waktu Mulai" /><TextInput type="time" className="w-full rounded-2xl border-none bg-slate-50 py-4 text-sm font-bold focus:bg-white focus:ring-4 focus:ring-indigo-500/10 transition-all" value={data.waktu_mulai} onChange={(e) => setData('waktu_mulai', e.target.value)} required /></div>
                         <div><InputLabel value="Waktu Selesai" /><TextInput type="time" className="w-full rounded-2xl border-none bg-slate-50 py-4 text-sm font-bold focus:bg-white focus:ring-4 focus:ring-indigo-500/10 transition-all" value={data.waktu_selesai} onChange={(e) => setData('waktu_selesai', e.target.value)} required /></div>
                         <div className="md:col-span-2"><InputLabel value="Keterangan" /><textarea className="w-full rounded-2xl border-none bg-slate-50 py-4 px-4 text-sm font-bold min-h-[100px] focus:bg-white focus:ring-4 focus:ring-indigo-500/10 transition-all" value={data.keterangan} onChange={(e) => setData('keterangan', e.target.value)} /></div>
