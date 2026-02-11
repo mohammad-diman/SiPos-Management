@@ -16,7 +16,7 @@ export default function Index({ auth, ibu_hamils, filters }) {
     const [selectedIbuHamil, setSelectedIbuHamil] = useState(null);
     const [deletingId, setDeletingId] = useState(null);
     const [searchQuery, setSearchQuery] = useState(filters.search || '');
-    
+
     const { data, setData, post, patch, delete: destroy, processing, errors, reset } = useForm({
         no_rm: '', nama: '', nik: '', tanggal_lahir: '', nama_suami: '', alamat: '',
         no_hp: '', usia_kehamilan: '', hpht: '', tgl_lahir_anak_terakhir: '',
@@ -44,10 +44,10 @@ export default function Index({ auth, ibu_hamils, filters }) {
         if (ih) {
             setSelectedIbuHamil(ih);
             setData({
-                no_rm: ih.no_rm || '', nama: ih.nama || '', nik: ih.nik || '', tanggal_lahir: ih.tanggal_lahir || '', 
-                nama_suami: ih.nama_suami || '', alamat: ih.alamat || '', no_hp: ih.no_hp || '', 
-                usia_kehamilan: ih.usia_kehamilan || '', hpht: ih.hpht || '', 
-                tgl_lahir_anak_terakhir: ih.tgl_lahir_anak_terakhir || '', 
+                no_rm: ih.no_rm || '', nama: ih.nama || '', nik: ih.nik || '', tanggal_lahir: ih.tanggal_lahir || '',
+                nama_suami: ih.nama_suami || '', alamat: ih.alamat || '', no_hp: ih.no_hp || '',
+                usia_kehamilan: ih.usia_kehamilan || '', hpht: ih.hpht || '',
+                tgl_lahir_anak_terakhir: ih.tgl_lahir_anak_terakhir || '',
                 golongan_darah: ih.golongan_darah || '', riwayat_penyakit: ih.riwayat_penyakit || ''
             });
         } else {
@@ -67,7 +67,7 @@ export default function Index({ auth, ibu_hamils, filters }) {
     };
 
     return (
-        <AuthenticatedLayout header={<span>Data Master <span className="text-seafoam-500 mx-2">/</span> Ibu Hamil</span>}>
+        <AuthenticatedLayout header={<span>Layanan Posyandu <span className="text-seafoam-500 mx-2">/</span> Ibu Hamil</span>}>
             <Head title="Master Ibu Hamil" />
 
             <div className="space-y-6">
@@ -78,14 +78,14 @@ export default function Index({ auth, ibu_hamils, filters }) {
                             <input type="text" placeholder="Cari No. RM atau Nama..." className="w-full rounded-xl border-none bg-slate-50 py-3 pl-11 pr-4 text-xs font-bold text-slate-600 focus:ring-4 focus:ring-emerald-500/10 transition-all" value={searchQuery} onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }} />
                         </div>
                         <div className="flex gap-2 w-full md:w-auto">
-                            <a 
-                                href={route('export.excel', 'ibu-hamil')} 
+                            <a
+                                href={route('export.excel', 'ibu-hamil')}
                                 className="flex-1 md:flex-none rounded-full px-5 py-2 bg-white border-2 border-seafoam-100 text-seafoam-600 hover:bg-seafoam-50 hover:border-seafoam-200 font-black text-[9px] uppercase tracking-[0.15em] shadow-sm transition-all text-center flex items-center justify-center"
                             >
                                 Excel
                             </a>
-                            <a 
-                                href={route('export.pdf', 'ibu-hamil')} 
+                            <a
+                                href={route('export.pdf', 'ibu-hamil')}
                                 className="flex-1 md:flex-none rounded-full px-5 py-2 bg-white border-2 border-rose-100 text-rose-600 hover:bg-rose-50 hover:border-rose-200 font-black text-[9px] uppercase tracking-[0.15em] shadow-sm transition-all text-center flex items-center justify-center"
                             >
                                 PDF
@@ -127,7 +127,7 @@ export default function Index({ auth, ibu_hamils, filters }) {
                             </tbody>
                         </table>
                     </div>
-                    
+
                     <div className="px-6 py-4 bg-slate-50/30 border-t border-slate-50 flex items-center justify-between text-[11px]">
                         <span className="font-black text-slate-400 uppercase tracking-widest">Menampilkan {ibu_hamils.from || 0} - {ibu_hamils.to || 0} dari {ibu_hamils.total} Data</span>
                         <Pagination links={ibu_hamils.links} />
@@ -174,7 +174,7 @@ export default function Index({ auth, ibu_hamils, filters }) {
             <Modal show={isDetailModalOpen} onClose={() => setIsDetailModalOpen(false)} maxWidth="4xl">
                 <div className="p-6 flex flex-col max-h-[90vh]">
                     <div className="shrink-0 flex justify-between items-start mb-6"><div className="flex items-center gap-4"><div className="h-14 w-14 rounded-2xl bg-rose-500 flex items-center justify-center text-white text-2xl font-black shadow-xl shadow-rose-200">{selectedIbuHamil?.nama?.charAt(0)}</div><div><h2 className="text-2xl font-black text-slate-900 tracking-tight">{selectedIbuHamil?.nama}</h2><p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest">RM: {selectedIbuHamil?.no_rm}</p></div></div><button onClick={() => setIsDetailModalOpen(false)} className="rounded-xl bg-slate-50 p-2 text-slate-400 hover:text-slate-600 transition-all active:scale-95"><svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3"><path d="M6 18L18 6M6 6l12 12" /></svg></button></div>
-                    
+
                     <div className="flex-1 overflow-y-auto custom-scrollbar pr-2 space-y-8">
                         <section>
                             <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-rose-500 mb-3 flex items-center gap-2"><span className="w-6 h-px bg-rose-100"></span> Informasi Kehamilan & Personal</h3>

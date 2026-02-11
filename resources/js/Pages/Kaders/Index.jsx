@@ -15,7 +15,7 @@ export default function Index({ auth, kaders, available_users, filters }) {
     const [selectedKader, setSelectedKader] = useState(null);
     const [deletingId, setDeletingId] = useState(null);
     const [searchQuery, setSearchQuery] = useState(filters.search || '');
-    
+
     const { data, setData, post, patch, delete: destroy, processing, reset, errors } = useForm({
         nik: '', nama: '', jabatan: '', no_hp: '', alamat: '', user_id: ''
     });
@@ -65,7 +65,7 @@ export default function Index({ auth, kaders, available_users, filters }) {
     };
 
     return (
-        <AuthenticatedLayout header={<span>Data Master <span className="text-seafoam-500 mx-2">/</span> Personil Kader</span>}>
+        <AuthenticatedLayout header={<span>Sistem <span className="text-indigo-500 mx-2">/</span> Kader</span>}>
             <Head title="Master Kader" />
 
             <div className="space-y-6">
@@ -73,12 +73,12 @@ export default function Index({ auth, kaders, available_users, filters }) {
                     <div className="flex items-center gap-3 w-full md:w-auto">
                         <div className="relative w-full md:w-80 group">
                             <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400"><SearchIcon /></span>
-                            <input 
-                                type="text" 
-                                placeholder="Cari NIK atau Nama..." 
-                                className="w-full rounded-xl border-none bg-slate-50 py-2.5 pl-11 pr-4 text-xs font-bold text-slate-600 focus:ring-4 focus:ring-seafoam-500/10 transition-all" 
-                                value={searchQuery} 
-                                onChange={(e) => setSearchQuery(e.target.value)} 
+                            <input
+                                type="text"
+                                placeholder="Cari NIK atau Nama..."
+                                className="w-full rounded-xl border-none bg-slate-50 py-2.5 pl-11 pr-4 text-xs font-bold text-slate-600 focus:ring-4 focus:ring-seafoam-500/10 transition-all"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
                             />
                         </div>
                         <PrimaryButton onClick={() => openModal()} className="rounded-full px-6 py-2 bg-seafoam-600 hover:bg-seafoam-700 border-none font-black text-white text-[9px] uppercase tracking-[0.15em] shadow-lg shadow-seafoam-100 shrink-0 flex items-center justify-center">
@@ -140,7 +140,7 @@ export default function Index({ auth, kaders, available_users, filters }) {
                             </tbody>
                         </table>
                     </div>
-                    
+
                     <div className="px-6 py-4 bg-slate-50/30 border-t border-slate-50 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px]">
                         <span className="font-black text-slate-400 uppercase tracking-widest text-[10px]">Menampilkan {kaders.data.length} dari {kaders.total} Kader</span>
                         <Pagination links={kaders.links} />
@@ -159,7 +159,7 @@ export default function Index({ auth, kaders, available_users, filters }) {
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3"><path d="M6 18L18 6M6 6l12 12" /></svg>
                         </button>
                     </div>
-                    
+
                     <div className="flex-1 overflow-y-auto p-8 custom-scrollbar">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-2">
                             <div><InputLabel value="NIK" /><TextInput className="w-full rounded-2xl border-none bg-slate-50 py-3 font-bold text-sm focus:bg-white focus:ring-4 focus:ring-seafoam-500/10 transition-all" value={data.nik} onChange={(e) => setData('nik', e.target.value)} required /><p className="text-rose-500 text-xs mt-1">{errors.nik}</p></div>
@@ -182,7 +182,7 @@ export default function Index({ auth, kaders, available_users, filters }) {
                             <div className="md:col-span-2"><InputLabel value="Alamat Lengkap" /><textarea className="w-full rounded-2xl border-none bg-slate-50 py-3 px-4 font-bold text-sm min-h-[80px] focus:bg-white focus:ring-4 focus:ring-seafoam-500/10 transition-all" value={data.alamat} onChange={(e) => setData('alamat', e.target.value)} /></div>
                         </div>
                     </div>
-                    
+
                     <div className="shrink-0 p-8 border-t border-slate-100 bg-slate-50/50 flex justify-end gap-3">
                         <SecondaryButton type="button" onClick={() => setIsModalOpen(false)} className="rounded-2xl px-6 py-4 border-none bg-white shadow-sm text-slate-600 font-bold text-xs">
                             Batal
@@ -194,7 +194,7 @@ export default function Index({ auth, kaders, available_users, filters }) {
                 </form>
             </Modal>
 
-            <Modal show={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} maxWidth="md"><div className="flex flex-col items-center text-center p-12"><div className="h-24 w-24 rounded-[2rem] bg-rose-50 text-rose-500 flex items-center justify-center mb-8 ring-[12px] ring-rose-50/50"><DeleteIcon size="48" /></div><h2 className="text-3xl font-black text-slate-900 mb-2 tracking-tight text-sm">Hapus Data?</h2><p className="text-slate-500 mb-6 text-sm font-medium">Data kader akan dihapus permanen, akun login tetap ada.</p><div className="flex w-full gap-3"><button onClick={() => setIsDeleteModalOpen(false)} className="flex-1 py-4 bg-slate-100 rounded-2xl font-black text-xs text-slate-600">Batal</button><button onClick={() => destroy(route('kader.destroy', deletingId), { onSuccess: () => setIsDeleteModalOpen(false) })} className="flex-1 py-4 bg-rose-600 text-white rounded-2xl font-black text-xs shadow-xl shadow-rose-200">Ya, Hapus</button></div></div></Modal>
+            <Modal show={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} maxWidth="md"><div className="flex flex-col items-center text-center p-12"><div className="h-24 w-24 rounded-[2rem] bg-rose-50 text-rose-500 flex items-center justify-center mb-8 ring-[12px] ring-rose-50/50"><DeleteIcon size="48" /></div><h2 className="text-3xl font-black text-slate-900 mb-2 tracking-tight">Hapus Data?</h2><p className="text-slate-500 mb-6 text-sm font-medium">Data kader akan dihapus permanen, akun login tetap ada.</p><div className="flex w-full gap-3"><button onClick={() => setIsDeleteModalOpen(false)} className="flex-1 py-4 bg-slate-100 rounded-2xl font-black text-xs text-slate-600">Batal</button><button onClick={() => destroy(route('kader.destroy', deletingId), { onSuccess: () => setIsDeleteModalOpen(false) })} className="flex-1 py-4 bg-rose-600 text-white rounded-2xl font-black text-xs shadow-xl shadow-rose-200">Ya, Hapus</button></div></div></Modal>
         </AuthenticatedLayout>
     );
 }

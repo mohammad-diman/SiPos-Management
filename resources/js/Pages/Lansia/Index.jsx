@@ -16,7 +16,7 @@ export default function Index({ auth, lansias, filters }) {
     const [selectedLansia, setSelectedLansia] = useState(null);
     const [deletingId, setDeletingId] = useState(null);
     const [searchQuery, setSearchQuery] = useState(filters.search || '');
-    
+
     const { data, setData, post, patch, delete: destroy, processing, reset, errors } = useForm({
         no_rm: '', nama: '', nik: '', tanggal_lahir: '', jenis_kelamin: 'L',
         alamat: '', no_hp: '', golongan_darah: '', riwayat_penyakit: '', alergi: ''
@@ -43,8 +43,8 @@ export default function Index({ auth, lansias, filters }) {
         if (l) {
             setSelectedLansia(l);
             setData({
-                no_rm: l.no_rm || '', nama: l.nama || '', nik: l.nik || '', tanggal_lahir: l.tanggal_lahir || '', 
-                jenis_kelamin: l.jenis_kelamin || 'L', alamat: l.alamat || '', no_hp: l.no_hp || '', 
+                no_rm: l.no_rm || '', nama: l.nama || '', nik: l.nik || '', tanggal_lahir: l.tanggal_lahir || '',
+                jenis_kelamin: l.jenis_kelamin || 'L', alamat: l.alamat || '', no_hp: l.no_hp || '',
                 golongan_darah: l.golongan_darah || '', riwayat_penyakit: l.riwayat_penyakit || '', alergi: l.alergi || ''
             });
         } else {
@@ -64,7 +64,7 @@ export default function Index({ auth, lansias, filters }) {
     };
 
     return (
-        <AuthenticatedLayout header={<span>Data Master <span className="text-seafoam-500 mx-2">/</span> Lansia</span>}>
+        <AuthenticatedLayout header={<span>Layanan Posbindu <span className="text-seafoam-500 mx-2">/</span> Lansia</span>}>
             <Head title="Data Lansia" />
 
             <div className="space-y-6">
@@ -72,23 +72,23 @@ export default function Index({ auth, lansias, filters }) {
                     <div className="flex items-center gap-3 w-full md:w-auto">
                         <div className="relative w-full md:w-80 group">
                             <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400"><SearchIcon /></span>
-                                                        <input 
-                                                            type="text" 
-                                                            placeholder="Cari No. RM atau Nama..." 
-                                                            className="w-full rounded-xl border-none bg-slate-50 py-3 pl-11 pr-4 text-xs font-bold text-slate-600 focus:ring-4 focus:ring-seafoam-500/10 transition-all" 
-                                                            value={searchQuery} 
-                                                            onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }} 
+                                                        <input
+                                                            type="text"
+                                                            placeholder="Cari No. RM atau Nama..."
+                                                            className="w-full rounded-xl border-none bg-slate-50 py-3 pl-11 pr-4 text-xs font-bold text-slate-600 focus:ring-4 focus:ring-seafoam-500/10 transition-all"
+                                                            value={searchQuery}
+                                                            onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }}
                                                         />
                         </div>
                         <div className="flex gap-2 w-full md:w-auto">
-                            <a 
-                                href={route('export.excel', 'lansia')} 
+                            <a
+                                href={route('export.excel', 'lansia')}
                                 className="flex-1 md:flex-none rounded-xl px-6 py-2.5 bg-white border border-seafoam-200 text-seafoam-600 hover:bg-seafoam-50 font-bold text-[10px] uppercase tracking-widest shadow-sm transition-all text-center"
                             >
                                 Excel
                             </a>
-                            <a 
-                                href={route('export.pdf', 'lansia')} 
+                            <a
+                                href={route('export.pdf', 'lansia')}
                                 className="flex-1 md:flex-none rounded-xl px-6 py-2.5 bg-white border border-rose-200 text-rose-600 hover:bg-rose-50 font-bold text-[10px] uppercase tracking-widest shadow-sm transition-all text-center"
                             >
                                 PDF
@@ -140,7 +140,7 @@ export default function Index({ auth, lansias, filters }) {
                             </tbody>
                         </table>
                     </div>
-                    
+
                     <div className="px-6 py-4 bg-slate-50/30 border-t border-slate-50 flex items-center justify-between text-[11px]">
                         <span className="font-black text-slate-400 uppercase tracking-widest">Menampilkan {lansias.from || 0} - {lansias.to || 0} dari {lansias.total} Data</span>
                         <Pagination links={lansias.links} />
@@ -183,7 +183,7 @@ export default function Index({ auth, lansias, filters }) {
             <Modal show={isDetailModalOpen} onClose={() => setIsDetailModalOpen(false)} maxWidth="5xl">
                 <div className="p-6 flex flex-col max-h-[90vh]">
                     <div className="shrink-0 flex justify-between items-start mb-8"><div className="flex items-center gap-5"><div className="h-16 w-16 rounded-[1.5rem] bg-amber-500 flex items-center justify-center text-white text-2xl font-black shadow-xl shadow-indigo-200">{selectedLansia?.nama?.charAt(0)}</div><div><h2 className="text-3xl font-black text-slate-900 tracking-tight">{selectedLansia?.nama}</h2><p className="text-slate-500 font-bold text-sm uppercase tracking-widest">RM: {selectedLansia?.no_rm}</p></div></div><button onClick={() => setIsDetailModalOpen(false)} className="rounded-2xl bg-slate-50 p-3 text-slate-400 hover:text-slate-600 active:scale-95 transition-all"><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3"><path d="M6 18L18 6M6 6l12 12" /></svg></button></div>
-                    
+
                     <div className="flex-1 overflow-y-auto custom-scrollbar pr-2 space-y-10">
                         <section>
                             <h3 className="text-xs font-black uppercase tracking-[0.2em] text-amber-500 mb-4 flex items-center gap-2"><span className="w-8 h-px bg-amber-100"></span> Identitas & Informasi Personal</h3>
@@ -239,7 +239,7 @@ export default function Index({ auth, lansias, filters }) {
                 </div>
             </Modal>
 
-            <Modal show={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} maxWidth="md"><div className="flex flex-col items-center text-center p-12"><div className="h-24 w-24 rounded-[2rem] bg-rose-50 text-rose-500 flex items-center justify-center mb-8 ring-[12px] ring-rose-50/50"><DeleteIcon size="48" /></div><h2 className="text-3xl font-black text-slate-900 mb-2 tracking-tight">Hapus Data?</h2><p className="text-slate-500 mb-6 text-sm font-medium">Tindakan ini permanen.</p><div className="flex w-full gap-3"><button onClick={() => setIsDeleteModalOpen(false)} className="flex-1 py-2 bg-slate-100 rounded-2xl font-black text-xs text-slate-600">Batal</button><button onClick={() => destroy(route('lansia.destroy', deletingId), { onSuccess: () => setIsDeleteModalOpen(false) })} className="flex-1 py-2 bg-rose-600 text-white rounded-2xl font-black text-xs shadow-xl shadow-rose-200 text-xs">Hapus</button></div></div></Modal>
+            <Modal show={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} maxWidth="md"><div className="flex flex-col items-center text-center p-12"><div className="h-24 w-24 rounded-[2rem] bg-rose-50 text-rose-500 flex items-center justify-center mb-8 ring-[12px] ring-rose-50/50"><DeleteIcon size="48" /></div><h2 className="text-3xl font-black text-slate-900 mb-2 tracking-tight">Hapus Data?</h2><p className="text-slate-500 mb-6 text-sm font-medium">Tindakan ini permanen.</p><div className="flex w-full gap-3"><button onClick={() => setIsDeleteModalOpen(false)} className="flex-1 py-2 bg-slate-100 rounded-2xl font-black text-xs text-slate-600">Batal</button><button onClick={() => destroy(route('lansia.destroy', deletingId), { onSuccess: () => setIsDeleteModalOpen(false) })} className="flex-1 py-2 bg-rose-600 text-white rounded-2xl font-black text-xs shadow-xl shadow-rose-200">Hapus</button></div></div></Modal>
         </AuthenticatedLayout>
     );
 }

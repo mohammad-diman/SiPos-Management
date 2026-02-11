@@ -15,7 +15,7 @@ export default function Index({ auth, penduduks, filters }) {
     const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
     const [selectedPenduduk, setSelectedPenduduk] = useState(null);
     const [deletingId, setDeletingId] = useState(null);
-    
+
     // UI States
     const [searchQuery, setSearchQuery] = useState(filters.search || '');
     const [selectedDesa, setSelectedDesa] = useState(filters.desa || '');
@@ -63,7 +63,7 @@ export default function Index({ auth, penduduks, filters }) {
     };
 
     return (
-        <AuthenticatedLayout header={<span>Database <span className="text-indigo-500 mx-2">/</span> Data Penduduk</span>}>
+        <AuthenticatedLayout header={<span>Data Master <span className="text-indigo-500 mx-2">/</span> Penduduk</span>}>
             <Head title="Data Penduduk" />
 
             <div className="space-y-3">
@@ -71,23 +71,23 @@ export default function Index({ auth, penduduks, filters }) {
                     <div className="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
                         <div className="relative w-full sm:w-64 group">
                             <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400"><SearchIcon /></span>
-                            <input 
-                                type="text" 
-                                placeholder="Cari NIK atau Nama..." 
-                                className="w-full rounded-xl border-none bg-slate-50 py-2.5 pl-10 pr-4 text-xs font-bold text-slate-600 focus:ring-4 focus:ring-indigo-500/10 transition-all" 
-                                value={searchQuery} 
-                                onChange={(e) => setSearchQuery(e.target.value)} 
+                            <input
+                                type="text"
+                                placeholder="Cari NIK atau Nama..."
+                                className="w-full rounded-xl border-none bg-slate-50 py-2.5 pl-10 pr-4 text-xs font-bold text-slate-600 focus:ring-4 focus:ring-indigo-500/10 transition-all"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
                             />
                         </div>
                         <div className="flex gap-2 w-full lg:w-auto">
-                            <a 
-                                href={route('export.excel', 'penduduk')} 
+                            <a
+                                href={route('export.excel', 'penduduk')}
                                 className="flex-1 lg:flex-none rounded-full px-5 py-2 bg-white border-2 border-seafoam-100 text-seafoam-600 hover:bg-seafoam-50 hover:border-seafoam-200 font-black text-[9px] uppercase tracking-[0.15em] shadow-sm transition-all text-center flex items-center justify-center"
                             >
                                 Excel
                             </a>
-                            <a 
-                                href={route('export.pdf', 'penduduk')} 
+                            <a
+                                href={route('export.pdf', 'penduduk')}
                                 className="flex-1 lg:flex-none rounded-full px-5 py-2 bg-white border-2 border-rose-100 text-rose-600 hover:bg-rose-50 hover:border-rose-200 font-black text-[9px] uppercase tracking-[0.15em] shadow-sm transition-all text-center flex items-center justify-center"
                             >
                                 PDF
@@ -98,7 +98,7 @@ export default function Index({ auth, penduduks, filters }) {
                         </div>
                     </div>
                     <div className="flex items-center gap-3">
-                        <select 
+                        <select
                             className="rounded-full border border-slate-200 bg-white py-1.5 px-4 text-[10px] font-bold uppercase tracking-wider text-slate-500 focus:ring-4 focus:ring-slate-500/5 focus:border-slate-400 transition-all cursor-pointer shadow-sm"
                             value={selectedDesa}
                             onChange={(e) => setSelectedDesa(e.target.value)}
@@ -160,7 +160,7 @@ export default function Index({ auth, penduduks, filters }) {
                             </tbody>
                         </table>
                     </div>
-                    
+
                     <div className="px-6 py-4 bg-slate-50/30 border-t border-slate-50 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px]">
                         <p className="font-black text-slate-400 uppercase tracking-widest text-[10px]">
                             Menampilkan <span className="text-slate-700">{penduduks.from || 0}</span> - <span className="text-slate-700">{penduduks.to || 0}</span> dari <span className="text-slate-700">{penduduks.total}</span> Penduduk
@@ -257,10 +257,10 @@ export default function Index({ auth, penduduks, filters }) {
 }
 
 function ActionButton({ children, onClick, color }) {
-    const colors = { 
-        seafoam: 'text-seafoam-500 bg-seafoam-50 hover:bg-seafoam-600 hover:text-white', 
-        indigo: 'text-indigo-500 bg-indigo-50 hover:bg-indigo-600 hover:text-white', 
-        rose: 'text-rose-500 bg-rose-50 hover:bg-rose-600 hover:text-white' 
+    const colors = {
+        seafoam: 'text-seafoam-500 bg-seafoam-50 hover:bg-seafoam-600 hover:text-white',
+        indigo: 'text-indigo-500 bg-indigo-50 hover:bg-indigo-600 hover:text-white',
+        rose: 'text-rose-500 bg-rose-50 hover:bg-rose-600 hover:text-white'
     };
     return (<button onClick={onClick} className={`h-9 w-9 flex items-center justify-center rounded-xl transition-all duration-300 shadow-sm active:scale-90 ${colors[color]}`}>{children}</button>);
 }

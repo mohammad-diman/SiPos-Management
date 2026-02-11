@@ -14,7 +14,7 @@ export default function Index({ auth, desas = [] }) {
     const [deletingId, setDeletingId] = useState(null);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(1);
-    
+
     const { data, setData, post, patch, delete: destroy, processing, reset, errors } = useForm({
         nama_desa: '',
     });
@@ -49,7 +49,7 @@ export default function Index({ auth, desas = [] }) {
     };
 
     return (
-        <AuthenticatedLayout header={<span>Database <span className="text-indigo-500 mx-2">/</span> Master Desa</span>}>
+        <AuthenticatedLayout header={<span>Data Master <span className="text-indigo-500 mx-2">/</span> Desa</span>}>
             <Head title="Master Desa" />
 
             <div className="space-y-6">
@@ -98,7 +98,7 @@ export default function Index({ auth, desas = [] }) {
                             </tbody>
                         </table>
                     </div>
-                    
+
                     <div className="px-6 py-4 bg-slate-50/30 border-t border-slate-50 flex items-center justify-between text-[11px]">
                         <span className="font-black text-slate-400 uppercase tracking-widest text-[10px]">Menampilkan {paginatedDesas.length} dari {desas.length} Data</span>
                         <div className="flex gap-2">
@@ -126,7 +126,7 @@ export default function Index({ auth, desas = [] }) {
                 </form>
             </Modal>
 
-            <Modal show={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} maxWidth="md"><div className="flex flex-col items-center text-center p-12"><div className="h-24 w-24 rounded-[2rem] bg-rose-50 text-rose-500 flex items-center justify-center mb-8 ring-[12px] ring-rose-50/50"><DeleteIcon size="48" /></div><h2 className="text-3xl font-black text-slate-900 mb-2 tracking-tight">Hapus Data?</h2><p className="text-slate-500 mb-6 text-sm font-medium">Tindakan ini permanen.</p><div className="flex w-full gap-3"><button onClick={() => setIsDeleteModalOpen(false)} className="flex-1 py-4 bg-slate-100 rounded-2xl font-black text-xs text-slate-600">Batal</button><button onClick={() => destroy(route('desa.destroy', deletingId), { onSuccess: () => setIsDeleteModalOpen(false) })} className="flex-1 py-4 bg-rose-600 text-white rounded-2xl font-black text-xs shadow-xl shadow-rose-200 text-xs">Hapus</button></div></div></Modal>
+            <Modal show={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} maxWidth="md"><div className="flex flex-col items-center text-center p-12"><div className="h-24 w-24 rounded-[2rem] bg-rose-50 text-rose-500 flex items-center justify-center mb-8 ring-[12px] ring-rose-50/50"><DeleteIcon size="48" /></div><h2 className="text-3xl font-black text-slate-900 mb-2 tracking-tight">Hapus Data?</h2><p className="text-slate-500 mb-6 text-sm font-medium">Tindakan ini permanen.</p><div className="flex w-full gap-3"><button onClick={() => setIsDeleteModalOpen(false)} className="flex-1 py-4 bg-slate-100 rounded-2xl font-black text-xs text-slate-600">Batal</button><button onClick={() => destroy(route('desa.destroy', deletingId), { onSuccess: () => setIsDeleteModalOpen(false) })} className="flex-1 py-4 bg-rose-600 text-white rounded-2xl font-black text-xs shadow-xl shadow-rose-200">Hapus</button></div></div></Modal>
         </AuthenticatedLayout>
     );
 }

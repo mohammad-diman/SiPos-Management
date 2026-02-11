@@ -16,20 +16,20 @@ export default function Index({ auth, pemeriksaans, lansias = [], filters, antri
     const [selectedPemeriksaan, setSelectedPemeriksaan] = useState(null);
     const [deletingId, setDeletingId] = useState(null);
     const [searchQuery, setSearchQuery] = useState(filters.search || '');
-    
+
     const { data, setData, post, patch, delete: destroy, processing, reset, errors } = useForm({
-        lansia_id: '', 
+        lansia_id: '',
         tanggal_periksa: new Date().toISOString().split('T')[0],
-        nama_kader: '', 
-        berat_badan: '', 
-        tinggi_badan: '', 
+        nama_kader: '',
+        berat_badan: '',
+        tinggi_badan: '',
         lingkar_perut: '',
         imt: '',
-        tekanan_darah: '', 
-        nadi: '', 
+        tekanan_darah: '',
+        nadi: '',
         suhu_tubuh: '',
-        gula_darah: '', 
-        kolesterol: '', 
+        gula_darah: '',
+        kolesterol: '',
         asam_urat: '',
         riwayat_merokok: false,
         riwayat_alkohol: false,
@@ -66,18 +66,18 @@ export default function Index({ auth, pemeriksaans, lansias = [], filters, antri
         if (p) {
             setSelectedPemeriksaan(p);
             setData({
-                lansia_id: p.lansia_id || '', 
+                lansia_id: p.lansia_id || '',
                 tanggal_periksa: p.tanggal_periksa || '',
-                nama_kader: p.nama_kader || '', 
-                berat_badan: p.berat_badan || '', 
+                nama_kader: p.nama_kader || '',
+                berat_badan: p.berat_badan || '',
                 tinggi_badan: p.tinggi_badan || '',
-                lingkar_perut: p.lingkar_perut || '', 
+                lingkar_perut: p.lingkar_perut || '',
                 imt: p.imt || '',
                 tekanan_darah: p.tekanan_darah || '',
-                nadi: p.nadi || '', 
+                nadi: p.nadi || '',
                 suhu_tubuh: p.suhu_tubuh || '',
-                gula_darah: p.gula_darah || '', 
-                kolesterol: p.kolesterol || '', 
+                gula_darah: p.gula_darah || '',
+                kolesterol: p.kolesterol || '',
                 asam_urat: p.asam_urat || '',
                 riwayat_merokok: p.riwayat_merokok === 1 || p.riwayat_merokok === true,
                 riwayat_alkohol: p.riwayat_alkohol === 1 || p.riwayat_alkohol === true,
@@ -104,22 +104,22 @@ export default function Index({ auth, pemeriksaans, lansias = [], filters, antri
         setIsDetailModalOpen(true);
     };
 
-    const closeModal = () => { 
-        setIsModalOpen(false); 
-        setSelectedPemeriksaan(null); 
-        reset(); 
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setSelectedPemeriksaan(null);
+        reset();
     };
 
     const submit = (e) => {
         e.preventDefault();
         const action = selectedPemeriksaan && selectedPemeriksaan.id ? route('pemeriksaan-lansia.update', selectedPemeriksaan.id) : route('pemeriksaan-lansia.store');
-        
+
         if (selectedPemeriksaan && selectedPemeriksaan.id) {
-            patch(action, { 
+            patch(action, {
                 onSuccess: () => setIsModalOpen(false)
             });
         } else {
-            post(action, { 
+            post(action, {
                 onSuccess: () => {
                     setIsModalOpen(false);
                     reset();
@@ -149,14 +149,14 @@ export default function Index({ auth, pemeriksaans, lansias = [], filters, antri
                         </div>
                         <div className="flex gap-3 relative z-10 w-full md:w-auto">
                             {antrian_aktif.status === 'menunggu' ? (
-                                <button 
+                                <button
                                     onClick={() => router.post(route('pemeriksaan-lansia.panggil', antrian_aktif.id))}
                                     className="flex-1 md:flex-none px-8 py-4 bg-white text-amber-600 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-amber-50 transition-all shadow-xl active:scale-95"
                                 >
                                     Panggil Sekarang
                                 </button>
                             ) : (
-                                <button 
+                                <button
                                     onClick={() => openModal({ lansia_id: lansias.find(l => l.nik === antrian_aktif.penduduk.nik)?.id, tanggal_periksa: new Date().toISOString().split('T')[0] })}
                                     className="flex-1 md:flex-none px-8 py-4 bg-seafoam-500 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-seafoam-600 transition-all shadow-xl active:scale-95 border border-seafoam-400"
                                 >
@@ -210,7 +210,7 @@ export default function Index({ auth, pemeriksaans, lansias = [], filters, antri
                                                                                     <div className="flex flex-col gap-0.5">
                                                                                         <span className="text-[10px] font-black text-seafoam-600">G: {p.gula_darah || '-'} | K: {p.kolesterol || '-'} | A: {p.asam_urat || '-'}</span>
                                                                                     </div>
-                                                                                </td>                                        
+                                                                                </td>
                                                                                 <td className="px-6 py-3 whitespace-nowrap text-right">
                                                                                     <div className="flex justify-end gap-1.5 text-slate-400">
                                                                                         <button onClick={() => openDetailModal(p)} className="p-1.5 hover:text-seafoam-600 transition-colors" title="Lihat Detail"><ViewIcon /></button>
@@ -221,12 +221,12 @@ export default function Index({ auth, pemeriksaans, lansias = [], filters, antri
                                                                             </tr>
                                 ))}
                                 {pemeriksaans.data.length === 0 && (
-                                    <tr><td colSpan="5" className="px-6 py-10 text-center text-slate-400 font-medium italic font-bold text-[11px] uppercase tracking-widest">Tidak ada data ditemukan.</td></tr>
+                                    <tr><td colSpan="5" className="px-6 py-10 text-center text-slate-400 italic font-bold text-[11px] uppercase tracking-widest">Tidak ada data ditemukan.</td></tr>
                                 )}
                             </tbody>
                         </table>
                     </div>
-                    
+
                     <div className="px-6 py-4 bg-slate-50/30 border-t border-slate-50 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px]">
                         <span className="font-black text-slate-400 uppercase tracking-widest">Menampilkan {pemeriksaans.from || 0} - {pemeriksaans.to || 0} dari {pemeriksaans.total} Data</span>
                         <Pagination links={pemeriksaans.links} />
@@ -245,7 +245,7 @@ export default function Index({ auth, pemeriksaans, lansias = [], filters, antri
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3"><path d="M6 18L18 6M6 6l12 12" /></svg>
                         </button>
                     </div>
-                    
+
                     <div className="flex-1 overflow-y-auto p-6 custom-scrollbar">
                         {Object.keys(errors).length > 0 && (
                             <div className="mb-4 p-4 bg-rose-50 border border-rose-100 rounded-2xl">
@@ -348,7 +348,7 @@ export default function Index({ auth, pemeriksaans, lansias = [], filters, antri
                             </div>
                         </div>
                     </div>
-                    
+
                     <div className="shrink-0 p-6 border-t border-slate-100 bg-slate-50/50 flex justify-end gap-3">
                         <SecondaryButton type="button" onClick={() => setIsModalOpen(false)} className="rounded-xl px-5 py-2.5 text-[10px]">Batal</SecondaryButton>
                         <PrimaryButton disabled={processing} className="rounded-xl px-6 py-2.5 bg-seafoam-600 hover:bg-seafoam-700 text-white border-none font-black text-[10px] uppercase tracking-widest active:scale-95 shadow-xl shadow-seafoam-200/50 min-w-[150px] flex justify-center">
@@ -370,7 +370,7 @@ export default function Index({ auth, pemeriksaans, lansias = [], filters, antri
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3"><path d="M6 18L18 6M6 6l12 12" /></svg>
                         </button>
                     </div>
-                    
+
                     <div className="flex-1 overflow-y-auto p-6 custom-scrollbar space-y-6">
                         <div className="flex items-center gap-4 p-4 bg-amber-50 rounded-2xl border border-amber-100">
                             <div className="h-12 w-12 rounded-xl bg-white flex items-center justify-center text-amber-600 font-black text-xl shadow-sm">
@@ -464,7 +464,7 @@ export default function Index({ auth, pemeriksaans, lansias = [], filters, antri
                             )}
                         </div>
                     </div>
-                    
+
                     <div className="shrink-0 p-6 border-t border-slate-100 bg-slate-50/50 flex justify-end">
                         <button onClick={() => setIsDetailModalOpen(false)} className="rounded-xl px-8 py-2.5 bg-slate-900 text-white font-black text-[10px] uppercase tracking-widest active:scale-95 transition-all">
                             Tutup Detail
@@ -473,7 +473,7 @@ export default function Index({ auth, pemeriksaans, lansias = [], filters, antri
                 </div>
             </Modal>
 
-            <Modal show={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} maxWidth="md"><div className="flex flex-col items-center text-center p-12"><div className="h-24 w-24 rounded-[2rem] bg-rose-50 text-rose-500 flex items-center justify-center mb-8 ring-[12px] ring-rose-50/50"><DeleteIcon size="48" /></div><h2 className="text-3xl font-black text-slate-900 mb-2 tracking-tight">Hapus Data?</h2><p className="text-slate-500 mb-6 text-sm font-medium">Tindakan ini permanen.</p><div className="flex w-full gap-3"><button onClick={() => setIsDeleteModalOpen(false)} className="flex-1 py-2 bg-slate-100 rounded-2xl font-black text-xs text-slate-600">Batal</button><button onClick={() => destroy(route('pemeriksaan-lansia.destroy', deletingId), { onSuccess: () => setIsDeleteModalOpen(false) })} className="flex-1 py-2 bg-rose-600 text-white rounded-2xl font-black text-xs shadow-xl shadow-rose-200 text-xs">Hapus</button></div></div></Modal>
+            <Modal show={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} maxWidth="md"><div className="flex flex-col items-center text-center p-12"><div className="h-24 w-24 rounded-[2rem] bg-rose-50 text-rose-500 flex items-center justify-center mb-8 ring-[12px] ring-rose-50/50"><DeleteIcon size="48" /></div><h2 className="text-3xl font-black text-slate-900 mb-2 tracking-tight">Hapus Data?</h2><p className="text-slate-500 mb-6 text-sm font-medium">Tindakan ini permanen.</p><div className="flex w-full gap-3"><button onClick={() => setIsDeleteModalOpen(false)} className="flex-1 py-2 bg-slate-100 rounded-2xl font-black text-xs text-slate-600">Batal</button><button onClick={() => destroy(route('pemeriksaan-lansia.destroy', deletingId), { onSuccess: () => setIsDeleteModalOpen(false) })} className="flex-1 py-2 bg-rose-600 text-white rounded-2xl font-black text-xs shadow-xl shadow-rose-200">Hapus</button></div></div></Modal>
         </AuthenticatedLayout>
     );
 }
@@ -489,11 +489,11 @@ const ViewIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height
 function Checkbox({ label, value, onChange }) {
     return (
         <label className="flex items-center gap-3 p-4 rounded-2xl bg-slate-50 border border-transparent hover:border-seafoam-200 transition-all cursor-pointer">
-            <input 
-                type="checkbox" 
-                checked={value} 
-                onChange={e => onChange(e.target.checked)} 
-                className="rounded-lg border-slate-200 text-seafoam-600 focus:ring-seafoam-500" 
+            <input
+                type="checkbox"
+                checked={value}
+                onChange={e => onChange(e.target.checked)}
+                className="rounded-lg border-slate-200 text-seafoam-600 focus:ring-seafoam-500"
             />
             <span className="text-[11px] font-black uppercase text-slate-600 tracking-wider leading-none">{label}</span>
         </label>

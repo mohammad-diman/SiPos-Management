@@ -16,19 +16,19 @@ export default function Index({ auth, pemeriksaans, ibu_hamils = [], filters, an
     const [selectedPemeriksaan, setSelectedPemeriksaan] = useState(null);
     const [deletingId, setDeletingId] = useState(null);
     const [searchQuery, setSearchQuery] = useState(filters.search || '');
-    
+
     const { data, setData, post, patch, delete: destroy, processing, reset, errors } = useForm({
-        ibu_hamil_id: '', 
+        ibu_hamil_id: '',
         tanggal_periksa: new Date().toISOString().split('T')[0],
-        berat_badan: '', 
-        tinggi_badan: '', 
+        berat_badan: '',
+        tinggi_badan: '',
         tekanan_darah: '',
-        lila: '', 
-        tfu: '', 
-        djj: '', 
+        lila: '',
+        tfu: '',
+        djj: '',
         jumlah_fe: '',
-        imunisasi_tt: '', 
-        keluhan: '', 
+        imunisasi_tt: '',
+        keluhan: '',
         catatan: ''
     });
 
@@ -53,17 +53,17 @@ export default function Index({ auth, pemeriksaans, ibu_hamils = [], filters, an
         if (p) {
             setSelectedPemeriksaan(p);
             setData({
-                ibu_hamil_id: p.ibu_hamil_id || '', 
+                ibu_hamil_id: p.ibu_hamil_id || '',
                 tanggal_periksa: p.tanggal_periksa || '',
-                berat_badan: p.berat_badan || '', 
-                tinggi_badan: p.tinggi_badan || '', 
+                berat_badan: p.berat_badan || '',
+                tinggi_badan: p.tinggi_badan || '',
                 tekanan_darah: p.tekanan_darah || '',
-                lila: p.lila || '', 
-                tfu: p.tfu || '', 
-                djj: p.djj || '', 
+                lila: p.lila || '',
+                tfu: p.tfu || '',
+                djj: p.djj || '',
                 jumlah_fe: p.jumlah_fe || '',
-                imunisasi_tt: p.imunisasi_tt || '', 
-                keluhan: p.keluhan || '', 
+                imunisasi_tt: p.imunisasi_tt || '',
+                keluhan: p.keluhan || '',
                 catatan: p.catatan || ''
             });
         } else {
@@ -78,22 +78,22 @@ export default function Index({ auth, pemeriksaans, ibu_hamils = [], filters, an
         setIsDetailModalOpen(true);
     };
 
-    const closeModal = () => { 
-        setIsModalOpen(false); 
-        setSelectedPemeriksaan(null); 
-        reset(); 
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setSelectedPemeriksaan(null);
+        reset();
     };
 
     const submit = (e) => {
         e.preventDefault();
         const action = selectedPemeriksaan && selectedPemeriksaan.id ? route('pemeriksaan-ibu-hamil.update', selectedPemeriksaan.id) : route('pemeriksaan-ibu-hamil.store');
-        
+
         if (selectedPemeriksaan && selectedPemeriksaan.id) {
-            patch(action, { 
+            patch(action, {
                 onSuccess: () => setIsModalOpen(false)
             });
         } else {
-            post(action, { 
+            post(action, {
                 onSuccess: () => {
                     setIsModalOpen(false);
                     reset();
@@ -123,14 +123,14 @@ export default function Index({ auth, pemeriksaans, ibu_hamils = [], filters, an
                         </div>
                         <div className="flex gap-3 relative z-10 w-full md:w-auto">
                             {antrian_aktif.status === 'menunggu' ? (
-                                <button 
+                                <button
                                     onClick={() => router.post(route('pemeriksaan-ibu-hamil.panggil', antrian_aktif.id))}
                                     className="flex-1 md:flex-none px-8 py-4 bg-white text-rose-600 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-rose-50 transition-all shadow-xl active:scale-95"
                                 >
                                     Panggil Sekarang
                                 </button>
                             ) : (
-                                <button 
+                                <button
                                     onClick={() => openModal({ ibu_hamil_id: ibu_hamils.find(ih => ih.nik === antrian_aktif.penduduk.nik)?.id, tanggal_periksa: new Date().toISOString().split('T')[0] })}
                                     className="flex-1 md:flex-none px-8 py-4 bg-seafoam-500 text-white rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-seafoam-600 transition-all shadow-xl active:scale-95 border border-seafoam-400"
                                 >
@@ -145,12 +145,12 @@ export default function Index({ auth, pemeriksaans, ibu_hamils = [], filters, an
                     <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
                         <div className="relative w-full sm:w-72 group">
                             <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400"><SearchIcon /></span>
-                            <input 
-                                type="text" 
-                                placeholder="Cari Nama Ibu Hamil..." 
-                                className="w-full rounded-xl border-none bg-slate-50 py-2.5 pl-11 pr-4 text-xs font-bold text-slate-600 focus:ring-4 focus:ring-seafoam-500/10 transition-all" 
-                                value={searchQuery} 
-                                onChange={(e) => setSearchQuery(e.target.value)} 
+                            <input
+                                type="text"
+                                placeholder="Cari Nama Ibu Hamil..."
+                                className="w-full rounded-xl border-none bg-slate-50 py-2.5 pl-11 pr-4 text-xs font-bold text-slate-600 focus:ring-4 focus:ring-seafoam-500/10 transition-all"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
                             />
                         </div>
                         <PrimaryButton onClick={() => openModal()} className="w-full sm:w-auto rounded-xl px-5 py-2.5 bg-rose-500 hover:bg-rose-600 border-none font-bold text-white text-[10px] uppercase tracking-widest shrink-0 shadow-lg shadow-rose-100">
@@ -199,12 +199,12 @@ export default function Index({ auth, pemeriksaans, ibu_hamils = [], filters, an
                                     </tr>
                                 ))}
                                 {pemeriksaans.data.length === 0 && (
-                                    <tr><td colSpan="5" className="px-6 py-12 text-center text-slate-400 font-medium italic text-[11px] font-bold uppercase tracking-widest">Tidak ada data pemeriksaan ditemukan.</td></tr>
+                                    <tr><td colSpan="5" className="px-6 py-12 text-center text-slate-400 italic text-[11px] font-bold uppercase tracking-widest">Tidak ada data pemeriksaan ditemukan.</td></tr>
                                 )}
                             </tbody>
                         </table>
                     </div>
-                    
+
                     <div className="px-6 py-4 bg-slate-50/30 border-t border-slate-50 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px]">
                         <span className="font-black text-slate-400 uppercase tracking-widest text-[10px]">Menampilkan {pemeriksaans.from || 0} - {pemeriksaans.to || 0} dari {pemeriksaans.total} Data</span>
                         <Pagination links={pemeriksaans.links} />
@@ -223,7 +223,7 @@ export default function Index({ auth, pemeriksaans, ibu_hamils = [], filters, an
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3"><path d="M6 18L18 6M6 6l12 12" /></svg>
                         </button>
                     </div>
-                    
+
                     <div className="flex-1 overflow-y-auto p-6 custom-scrollbar">
                         {/* Global Error Display */}
                         {Object.keys(errors).length > 0 && (
@@ -252,7 +252,7 @@ export default function Index({ auth, pemeriksaans, ibu_hamils = [], filters, an
                                             {ibu_hamils.map(i => <option key={i.id} value={i.id}>{i.no_rm} - {i.nama}</option>)}
                                         </select>
                                     </div>
-                                    
+
                                     <div className="grid grid-cols-2 gap-3">
                                         <div><InputLabel value="Tanggal" /><TextInput type="date" className="w-full rounded-xl border-none bg-slate-50 py-2 text-sm" value={data.tanggal_periksa} onChange={(e) => setData('tanggal_periksa', e.target.value)} required /></div>
                                         <div><InputLabel value="Tensi" /><TextInput placeholder="120/80" className="w-full rounded-xl border-none bg-slate-50 py-2 text-sm" value={data.tekanan_darah} onChange={(e) => setData('tekanan_darah', e.target.value)} required /></div>
@@ -284,7 +284,7 @@ export default function Index({ auth, pemeriksaans, ibu_hamils = [], filters, an
                             </div>
                         </div>
                     </div>
-                    
+
                     <div className="shrink-0 p-6 border-t border-slate-100 bg-slate-50/50 flex justify-end gap-3">
                         <SecondaryButton type="button" onClick={() => setIsModalOpen(false)} className="rounded-xl px-5 py-2.5 text-[10px]">Batal</SecondaryButton>
                         <PrimaryButton disabled={processing} className="rounded-xl px-6 py-2.5 bg-seafoam-600 hover:bg-seafoam-700 text-white border-none font-black text-[10px] uppercase tracking-widest active:scale-95 shadow-xl shadow-seafoam-200/50 min-w-[150px] flex justify-center">
@@ -306,7 +306,7 @@ export default function Index({ auth, pemeriksaans, ibu_hamils = [], filters, an
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3"><path d="M6 18L18 6M6 6l12 12" /></svg>
                         </button>
                     </div>
-                    
+
                     <div className="flex-1 overflow-y-auto p-6 custom-scrollbar space-y-6">
                         <div className="flex items-center gap-4 p-4 bg-rose-50 rounded-2xl border border-rose-100">
                             <div className="h-12 w-12 rounded-xl bg-white flex items-center justify-center text-rose-600 font-black text-xl shadow-sm">
@@ -357,7 +357,7 @@ export default function Index({ auth, pemeriksaans, ibu_hamils = [], filters, an
                             </div>
                         </div>
                     </div>
-                    
+
                     <div className="shrink-0 p-6 border-t border-slate-100 bg-slate-50/50 flex justify-end">
                         <button onClick={() => setIsDetailModalOpen(false)} className="rounded-xl px-8 py-2.5 bg-slate-900 text-white font-black text-[10px] uppercase tracking-widest active:scale-95 transition-all">
                             Tutup Detail
@@ -366,7 +366,7 @@ export default function Index({ auth, pemeriksaans, ibu_hamils = [], filters, an
                 </div>
             </Modal>
 
-            <Modal show={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} maxWidth="md"><div className="flex flex-col items-center text-center p-12 text-sm"><div className="h-24 w-24 rounded-[2rem] bg-rose-50 text-rose-500 flex items-center justify-center mb-8 ring-[12px] ring-rose-50/50"><DeleteIcon size="48" /></div><h2 className="text-3xl font-black text-slate-900 mb-2 tracking-tight text-sm text-sm">Hapus Data?</h2><p className="text-slate-500 mb-6 text-sm font-medium text-sm">Tindakan ini permanen.</p><div className="flex w-full gap-4"><button onClick={() => setIsDeleteModalOpen(false)} className="flex-1 py-4 bg-slate-100 rounded-2xl font-black text-xs text-slate-600">Batal</button><button onClick={() => destroy(route('pemeriksaan-ibu-hamil.destroy', deletingId), { onSuccess: () => setIsDeleteModalOpen(false) })} className="flex-1 py-4 bg-rose-600 text-white rounded-2xl font-black text-xs shadow-xl shadow-rose-200 text-xs text-sm">Hapus</button></div></div></Modal>
+            <Modal show={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} maxWidth="md"><div className="flex flex-col items-center text-center p-12 text-sm"><div className="h-24 w-24 rounded-[2rem] bg-rose-50 text-rose-500 flex items-center justify-center mb-8 ring-[12px] ring-rose-50/50"><DeleteIcon size="48" /></div><h2 className="text-3xl font-black text-slate-900 mb-2 tracking-tight">Hapus Data?</h2><p className="text-slate-500 mb-6 text-sm font-medium">Tindakan ini permanen.</p><div className="flex w-full gap-4"><button onClick={() => setIsDeleteModalOpen(false)} className="flex-1 py-4 bg-slate-100 rounded-2xl font-black text-xs text-slate-600">Batal</button><button onClick={() => destroy(route('pemeriksaan-ibu-hamil.destroy', deletingId), { onSuccess: () => setIsDeleteModalOpen(false) })} className="flex-1 py-4 bg-rose-600 text-white rounded-2xl font-black text-xs shadow-xl shadow-rose-200">Hapus</button></div></div></Modal>
         </AuthenticatedLayout>
     );
 }

@@ -16,7 +16,7 @@ export default function Index({ auth, balitas, filters }) {
     const [selectedBalita, setSelectedBalita] = useState(null);
     const [deletingId, setDeletingId] = useState(null);
     const [searchQuery, setSearchQuery] = useState(filters.search || '');
-    
+
     const { data, setData, post, patch, delete: destroy, processing, reset, errors } = useForm({
         no_rm: '', nama: '', nik: '', tanggal_lahir: '', jenis_kelamin: 'L',
         alamat: '', no_hp_ortu: '', berat_badan_lahir: '', tinggi_badan_lahir: '',
@@ -66,7 +66,7 @@ export default function Index({ auth, balitas, filters }) {
     };
 
     return (
-        <AuthenticatedLayout header={<span>Data Master <span className="text-seafoam-500 mx-2">/</span> Balita</span>}>
+        <AuthenticatedLayout header={<span>Layanan Posyandu <span className="text-seafoam-500 mx-2">/</span> Balita</span>}>
             <Head title="Data Balita" />
 
             <div className="space-y-6">
@@ -77,14 +77,14 @@ export default function Index({ auth, balitas, filters }) {
                             <input type="text" placeholder="Cari No. RM atau Nama..." className="w-full rounded-xl border-none bg-slate-50 py-3 pl-11 pr-4 text-xs font-bold text-slate-600 focus:ring-4 focus:ring-seafoam-500/10 transition-all" value={searchQuery} onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }} />
                         </div>
                         <div className="flex gap-2 w-full lg:w-auto">
-                            <a 
-                                href={route('export.excel', 'balita')} 
+                            <a
+                                href={route('export.excel', 'balita')}
                                 className="flex-1 lg:flex-none rounded-full px-5 py-2 bg-white border-2 border-seafoam-100 text-seafoam-600 hover:bg-seafoam-50 hover:border-seafoam-200 font-black text-[9px] uppercase tracking-[0.15em] shadow-sm transition-all text-center flex items-center justify-center"
                             >
                                 Excel
                             </a>
-                            <a 
-                                href={route('export.pdf', 'balita')} 
+                            <a
+                                href={route('export.pdf', 'balita')}
                                 className="flex-1 lg:flex-none rounded-full px-5 py-2 bg-white border-2 border-rose-100 text-rose-600 hover:bg-rose-50 hover:border-rose-200 font-black text-[9px] uppercase tracking-[0.15em] shadow-sm transition-all text-center flex items-center justify-center"
                             >
                                 PDF
@@ -126,7 +126,7 @@ export default function Index({ auth, balitas, filters }) {
                             </tbody>
                         </table>
                     </div>
-                    
+
                     <div className="px-6 py-4 bg-slate-50/30 border-t border-slate-50 flex items-center justify-between text-[11px]">
                         <span className="font-black text-slate-400 uppercase tracking-widest">Menampilkan {balitas.from || 0} - {balitas.to || 0} dari {balitas.total} Data</span>
                         <Pagination links={balitas.links} />
@@ -174,7 +174,7 @@ export default function Index({ auth, balitas, filters }) {
             <Modal show={isDetailModalOpen} onClose={() => setIsDetailModalOpen(false)} maxWidth="4xl">
                 <div className="p-6 flex flex-col max-h-[90vh]">
                     <div className="shrink-0 flex justify-between items-start mb-6"><div className="flex items-center gap-4"><div className="h-14 w-14 rounded-2xl bg-indigo-600 flex items-center justify-center text-white text-2xl font-black shadow-xl shadow-indigo-200">{selectedBalita?.nama?.charAt(0)}</div><div><h2 className="text-2xl font-black text-slate-900 tracking-tight">{selectedBalita?.nama}</h2><p className="text-slate-500 font-bold text-[10px] uppercase tracking-widest">RM: {selectedBalita?.no_rm}</p></div></div><button onClick={() => setIsDetailModalOpen(false)} className="rounded-xl bg-slate-50 p-2 text-slate-400 hover:text-slate-600 transition-all active:scale-95"><svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3"><path d="M6 18L18 6M6 6l12 12" /></svg></button></div>
-                    
+
                     <div className="flex-1 overflow-y-auto custom-scrollbar pr-2 space-y-8">
                         <section>
                             <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-500 mb-3 flex items-center gap-2"><span className="w-6 h-px bg-indigo-100"></span> Data Personal & Kelahiran</h3>

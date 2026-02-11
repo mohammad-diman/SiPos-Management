@@ -15,7 +15,7 @@ export default function Index({ auth, users, filters }) {
     const [selectedUser, setSelectedUser] = useState(null);
     const [deletingId, setDeletingId] = useState(null);
     const [searchQuery, setSearchQuery] = useState(filters.search || '');
-    
+
     const { data, setData, post, patch, delete: destroy, processing, reset, errors } = useForm({
         name: '', email: '', password: '', role: 'kader'
     });
@@ -63,7 +63,7 @@ export default function Index({ auth, users, filters }) {
     };
 
     return (
-        <AuthenticatedLayout header={<span>Konfigurasi Sistem <span className="text-indigo-500 mx-2">/</span> Manajemen Petugas</span>}>
+        <AuthenticatedLayout header={<span>Sistem <span className="text-indigo-500 mx-2">/</span> Manajemen Akun</span>}>
             <Head title="Manajemen Petugas" />
 
             <div className="space-y-6">
@@ -71,12 +71,12 @@ export default function Index({ auth, users, filters }) {
                     <div className="flex items-center gap-4 w-full md:w-auto">
                         <div className="relative w-full md:w-80 group">
                             <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400"><SearchIcon /></span>
-                            <input 
-                                type="text" 
-                                placeholder="Cari nama atau email..." 
-                                className="w-full rounded-xl border-none bg-slate-50 py-2.5 pl-11 pr-4 text-xs font-bold text-slate-600 focus:ring-4 focus:ring-indigo-500/10 transition-all" 
-                                value={searchQuery} 
-                                onChange={(e) => setSearchQuery(e.target.value)} 
+                            <input
+                                type="text"
+                                placeholder="Cari nama atau email..."
+                                className="w-full rounded-xl border-none bg-slate-50 py-2.5 pl-11 pr-4 text-xs font-bold text-slate-600 focus:ring-4 focus:ring-indigo-500/10 transition-all"
+                                value={searchQuery}
+                                onChange={(e) => setSearchQuery(e.target.value)}
                             />
                         </div>
                         {auth.user.role === 'admin' && (
@@ -117,7 +117,7 @@ export default function Index({ auth, users, filters }) {
                                         </td>
                                         <td className="px-6 py-3 whitespace-nowrap text-[12px]">
                                             <span className={`px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-widest ${
-                                                u.role === 'admin' ? 'bg-indigo-50 text-indigo-600' : 
+                                                u.role === 'admin' ? 'bg-indigo-50 text-indigo-600' :
                                                 u.role === 'kader' ? 'bg-seafoam-50 text-seafoam-600' : 'bg-slate-50 text-slate-600'
                                             }`}>
                                                 {u.role}
@@ -138,7 +138,7 @@ export default function Index({ auth, users, filters }) {
                             </tbody>
                         </table>
                     </div>
-                    
+
                     <div className="px-6 py-4 bg-slate-50/30 border-t border-slate-50 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px]">
                         <span className="font-black text-slate-400 uppercase tracking-widest text-[10px]">Halaman {users.current_page} • Menampilkan {users.data.length} dari {users.total} Data</span>
                         <Pagination links={users.links} />
@@ -157,48 +157,48 @@ export default function Index({ auth, users, filters }) {
                             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="3"><path d="M6 18L18 6M6 6l12 12" /></svg>
                         </button>
                     </div>
-                    
+
                     <div className="flex-1 overflow-y-auto p-8 custom-scrollbar">
                         <div className="space-y-6 py-2">
                             <div>
                                 <InputLabel value="Nama Lengkap" />
-                                <TextInput 
-                                    className="w-full rounded-2xl border-none bg-slate-50 py-4 text-sm font-bold focus:bg-white focus:ring-4 focus:ring-seafoam-500/10 transition-all" 
-                                    value={data.name} 
-                                    onChange={(e) => setData('name', e.target.value)} 
-                                    required 
+                                <TextInput
+                                    className="w-full rounded-2xl border-none bg-slate-50 py-4 text-sm font-bold focus:bg-white focus:ring-4 focus:ring-seafoam-500/10 transition-all"
+                                    value={data.name}
+                                    onChange={(e) => setData('name', e.target.value)}
+                                    required
                                 />
                                 <p className="text-rose-500 text-xs mt-1">{errors.name}</p>
                             </div>
                             <div>
                                 <InputLabel value="Email" />
-                                <TextInput 
-                                    type="email" 
-                                    className="w-full rounded-2xl border-none bg-slate-50 py-4 text-sm font-bold focus:bg-white focus:ring-4 focus:ring-seafoam-500/10 transition-all" 
-                                    value={data.email} 
-                                    onChange={(e) => setData('email', e.target.value)} 
-                                    required 
+                                <TextInput
+                                    type="email"
+                                    className="w-full rounded-2xl border-none bg-slate-50 py-4 text-sm font-bold focus:bg-white focus:ring-4 focus:ring-seafoam-500/10 transition-all"
+                                    value={data.email}
+                                    onChange={(e) => setData('email', e.target.value)}
+                                    required
                                 />
                                 <p className="text-rose-500 text-xs mt-1">{errors.email}</p>
                             </div>
                             <div>
                                 <InputLabel value="Password" />
-                                <TextInput 
-                                    type="password" 
-                                    className="w-full rounded-2xl border-none bg-slate-50 py-4 text-sm font-bold focus:bg-white focus:ring-4 focus:ring-seafoam-500/10 transition-all" 
-                                    value={data.password} 
-                                    onChange={(e) => setData('password', e.target.value)} 
-                                    required={!selectedUser} 
-                                    placeholder={selectedUser ? 'Kosongkan jika tidak ingin ganti password' : '••••••••'} 
+                                <TextInput
+                                    type="password"
+                                    className="w-full rounded-2xl border-none bg-slate-50 py-4 text-sm font-bold focus:bg-white focus:ring-4 focus:ring-seafoam-500/10 transition-all"
+                                    value={data.password}
+                                    onChange={(e) => setData('password', e.target.value)}
+                                    required={!selectedUser}
+                                    placeholder={selectedUser ? 'Kosongkan jika tidak ingin ganti password' : '••••••••'}
                                 />
                                 <p className="text-rose-500 text-xs mt-1">{errors.password}</p>
                             </div>
                             <div>
                                 <InputLabel value="Role / Hak Akses" />
-                                <select 
-                                    className="w-full rounded-2xl border-none bg-slate-50 py-4 font-bold text-slate-700 text-sm focus:ring-4 focus:ring-seafoam-500/10 transition-all cursor-pointer" 
-                                    value={data.role} 
-                                    onChange={(e) => setData('role', e.target.value)} 
+                                <select
+                                    className="w-full rounded-2xl border-none bg-slate-50 py-4 font-bold text-slate-700 text-sm focus:ring-4 focus:ring-seafoam-500/10 transition-all cursor-pointer"
+                                    value={data.role}
+                                    onChange={(e) => setData('role', e.target.value)}
                                     required
                                 >
                                     <option value="admin">Administrator</option>
@@ -209,7 +209,7 @@ export default function Index({ auth, users, filters }) {
                             </div>
                         </div>
                     </div>
-                    
+
                     <div className="shrink-0 p-8 border-t border-slate-100 bg-slate-50/50 flex justify-end gap-3">
                         <SecondaryButton type="button" onClick={() => setIsModalOpen(false)} className="rounded-2xl px-6 py-4 border-none bg-white shadow-sm text-slate-600 font-bold text-xs">
                             Batal
@@ -221,7 +221,7 @@ export default function Index({ auth, users, filters }) {
                 </form>
             </Modal>
 
-            <Modal show={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} maxWidth="md"><div className="flex flex-col items-center text-center p-12"><div className="h-24 w-24 rounded-[2rem] bg-rose-50 text-rose-500 flex items-center justify-center mb-8 ring-[12px] ring-rose-50/50"><DeleteIcon size="48" /></div><h2 className="text-3xl font-black text-slate-900 mb-2 tracking-tight">Hapus Akun?</h2><p className="text-slate-500 mb-10 text-sm font-medium">Petugas tidak akan bisa mengakses sistem lagi.</p><div className="flex w-full gap-4"><button onClick={() => setIsDeleteModalOpen(false)} className="flex-1 py-4 bg-slate-100 rounded-2xl font-black text-xs text-slate-600">Batal</button><button onClick={() => destroy(route('users.destroy', deletingId), { onSuccess: () => setIsDeleteModalOpen(false) })} className="flex-1 py-4 bg-rose-600 text-white rounded-2xl font-black text-xs shadow-xl shadow-rose-200 text-xs">Ya, Hapus</button></div></div></Modal>
+            <Modal show={isDeleteModalOpen} onClose={() => setIsDeleteModalOpen(false)} maxWidth="md"><div className="flex flex-col items-center text-center p-12"><div className="h-24 w-24 rounded-[2rem] bg-rose-50 text-rose-500 flex items-center justify-center mb-8 ring-[12px] ring-rose-50/50"><DeleteIcon size="48" /></div><h2 className="text-3xl font-black text-slate-900 mb-2 tracking-tight">Hapus Akun?</h2><p className="text-slate-500 mb-10 text-sm font-medium">Petugas tidak akan bisa mengakses sistem lagi.</p><div className="flex w-full gap-4"><button onClick={() => setIsDeleteModalOpen(false)} className="flex-1 py-4 bg-slate-100 rounded-2xl font-black text-xs text-slate-600">Batal</button><button onClick={() => destroy(route('users.destroy', deletingId), { onSuccess: () => setIsDeleteModalOpen(false) })} className="flex-1 py-4 bg-rose-600 text-white rounded-2xl font-black text-xs shadow-xl shadow-rose-200">Ya, Hapus</button></div></div></Modal>
         </AuthenticatedLayout>
     );
 }
